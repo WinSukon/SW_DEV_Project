@@ -6,7 +6,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 const Menus = () => {
     return (  
-        <div className="flex w-[5%] flex-col justify-around">
+        <div className="flex w-[5%] flex-col justify-around bg-[#FFCE50]">
             <div className="flex flex-col">
                 <Link href="/restaurants" className="flex flex-row">
                     <RestaurantMenuIcon></RestaurantMenuIcon>

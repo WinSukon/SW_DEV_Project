@@ -1,6 +1,6 @@
 const Meuns = () => {
     return (  
-        <div className="flex w-[20%] h-[100%] flex-col">
+        <div className="flex w-[5%] flex-col">
             <div>asavsav</div>
             <div>asavsav</div>
             <div>asavsav</div>

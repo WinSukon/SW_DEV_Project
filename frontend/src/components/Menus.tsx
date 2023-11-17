@@ -1,45 +1,45 @@
-import Link from "next/link";
-import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
-import BookIcon from '@mui/icons-material/Book';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
+import Image from "next/image";
+import TopMenuItem from "./TopMenuItem";
 const Menus = () => {
     return (  
-        <div className="flex w-[5%] flex-col justify-around bg-[#FFCE50]">
-            <div className="flex flex-col">
-                <Link href="/restaurants" className="flex flex-row">
-                    <RestaurantMenuIcon></RestaurantMenuIcon>
-                    <div className="flex">Restaurants</div>
-                </Link>
+        // <div className="flex w-[15%] flex-col p-5 bg-[#FFCE50] decoration-transparent">
+        //     <div className="bottom">
+        //         <Link href="/restaurants" className="flex flex-row">
+        //             <RestaurantMenuIcon></RestaurantMenuIcon>
+        //             <div>Restaurants</div>
+        //         </Link>
 
-                <Link href="/mybooking" className="flex flex-row">
-                    <BookIcon></BookIcon>
-                    <div className="flex">Reservation</div>
-                </Link>
+        //         <Link href="/booking" className="flex flex-row">
+        //             <BookIcon></BookIcon>
+        //             <div>Reservation</div>
+        //         </Link>
 
-                <Link href="/Booking" className="flex flex-row">
-                    <AddBoxIcon></AddBoxIcon>
-                    <div className="flex">Booking</div>
-                </Link>
-            </div>
+        //         <Link href="/Booking" className="flex flex-row">
+        //             <AddBoxIcon></AddBoxIcon>
+        //             <div>Booking</div>
+        //         </Link>
+        //     </div>
         
 
-            <div className="flex flex-col">
-                <Link href="" className="flex flex-row">
-                    <LoginIcon></LoginIcon>
-                    <div className="flex">Login</div>
-                </Link>
+        //     <div className="bottom-0">
+        //         <Link href="" className="flex flex-row">
+        //             <LoginIcon></LoginIcon>
+        //             <div>Login</div>
+        //         </Link>
 
-                <Link href="" className="flex flex-row">
-                    <LogoutIcon></LogoutIcon>
-                    <div className="flex">Logout</div>
-                </Link>
-            </div>
+        //         <Link href="" className="flex flex-row">
+        //             <LogoutIcon></LogoutIcon>
+        //             <div>Logout</div>
+        //         </Link>
+        //     </div>
+        // </div>
+        <div className="h-16 bg-[#FFCE50] fixed z-50 inset-x-0 top-0 flex flex-row justify-center shadow-lg">
+            <TopMenuItem title='Booking' pageRef='/booking'/>
+            <div className="border border-black my-2"></div>
+            <TopMenuItem title='Restaurants' pageRef='/restaurants'/>
+            <div className="border border-black my-2"></div>
+            <TopMenuItem title='Reservation' pageRef='/mybooking'/>
             
-
-
-
         </div>
     );
 }

@@ -3,8 +3,7 @@ import Menus from "@/components/Menus";
 
 export default function Home() {
   return (
-    <main className="flex flex-row  min-h-screen">
-      <Menus></Menus>
+    <main>
       <Banner></Banner>
     </main>
   )

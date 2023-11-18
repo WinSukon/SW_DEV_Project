@@ -1,4 +1,4 @@
-// import Form from '@/components/Form'
+import Form from '@/components/Form'
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import {getServerSession} from 'next-auth';
 import getUserProfile from '@/libs/getUserProfile';
@@ -11,7 +11,7 @@ export default async function booking() {
             <main>
                 <div className='flex flex-col items-center '>
                     <div className='text-3xl p-3 m-3'>Your New Reservation </div>
-                    {/* <Form></Form> */}
+                    <Form></Form>
                 </div>
             </main>
         ); 
@@ -37,7 +37,7 @@ export default async function booking() {
                 </div>
                 
                 <div className='text-3xl p-3 m-3'>Your New Reservation </div>
-                {/* <Form></Form> */}
+                <Form></Form>
             </div>
         </main>
     );

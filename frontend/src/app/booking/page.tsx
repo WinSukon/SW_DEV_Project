@@ -8,10 +8,11 @@ export default async function booking() {
    
     if(!session || !session.user.token){
         return (
-            <main>
-                <div className='flex flex-col items-center text-center p-5 my-10'>
-                    <h1 className="text-4xl font-bold w-[100%]">Booking</h1>
-                    <hr className="mt-10 border-black"></hr>
+            <main className='p-5 my-10'>
+                <h1 className="text-4xl text-center font-bold w-[100%]">Booking</h1>
+                <hr className="mt-10 border-black"></hr>
+
+                <div className='flex flex-col items-center '>
                     <Form></Form>
                 </div>
             </main>
@@ -21,8 +22,11 @@ export default async function booking() {
     var createAt = new Date(profile.data.createdAt);
 
     return ( 
-        <main>
-            <div className='flex flex-col items-center text-center p-5 my-10 '>
+        <main className='p-5 my-10'>
+            <h1 className="text-4xl text-center font-bold w-[100%]">Booking</h1>
+            <hr className="mt-10 border-black"></hr>
+
+            <div className='flex flex-col items-center  '>
                 <div className="bg-slate-100 m-5 p-5">
                     <div className="text-2xl">
                         {profile.data.name}
@@ -36,11 +40,9 @@ export default async function booking() {
                         </tbody>
                     </table>
                 </div>
-                
-                <h1 className="text-4xl font-bold w-[100%]">Booking</h1>
-                <hr className="mt-10 border-black"></hr>
-                <Form></Form>
+                <Form></Form>     
             </div>
+
         </main>
     );
 }

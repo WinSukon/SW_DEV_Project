@@ -8,19 +8,16 @@ import { BookingItem } from "@/interface";
 
 export default function mybooking(){
     const bookItems = useAppSelector((state)=>state.bookSlice.bookItems)
-    console.log(bookItems)
     const dispatch = useDispatch<AppDispatch>();
 
     const cancel=(bookItem:BookingItem)=>{
         dispatch(cancelBooking(bookItem))
     }
     return(
-        <div className="flex flex-col">
-            <div className="flex text-center p-5 my-10">
-                <h1 className="text-4xl font-bold w-[100%]">Reservations</h1>
-                <hr className="mt-10 border-black"></hr>
-            </div>
-            
+        <main className='p-5 my-10'>
+            <h1 className="text-4xl text-center font-bold w-[100%]">Reservations</h1>
+            <hr className="mt-10 border-black"></hr>
+
             {bookItems.length===0 ?
                 <div>No Vaccine Booking</div>
                 :
@@ -39,11 +36,8 @@ export default function mybooking(){
 
                     ))}
                 </div>
-  
-
-                
             }
-        </div>
+        </main>
   
     );
 }

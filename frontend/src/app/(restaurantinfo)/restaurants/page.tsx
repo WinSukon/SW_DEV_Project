@@ -3,6 +3,7 @@ import AddRestaurantForm from "@/components/AddRestaurantForm";
 import RestaurantCatalog from "@/components/restaurantCatalog";
 import getUserProfile from "@/libs/getUserProfile";
 import { getServerSession } from "next-auth";
+import Link from "next/link";
 
 
 export default async function RestaurantList(){
@@ -18,6 +19,9 @@ export default async function RestaurantList(){
             <h1 className="text-4xl font-bold w-[100%]">Restaurant List</h1>
             <hr className="mt-10 border-black"></hr>
             <RestaurantCatalog/>
+            <Link href={"/manage"}>
+              <div>Test</div>
+            </Link>
             {isAdmin ? (
               <div className="my-1 items-center">
                 <hr className="mt-10 border-black"></hr>

@@ -1,9 +1,10 @@
+
 import Image from 'next/image';
 import getRestaurant from '@/libs/getRestaurant';
-import DelButton from '@/components/delButton';
 import { getServerSession } from "next-auth";
 import getUserProfile from "@/libs/getUserProfile";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import {redirect} from "next/navigation"
 
 export default async function HospitalDetailPage({params}:{params:{rid:string}}){
     
@@ -16,6 +17,12 @@ export default async function HospitalDetailPage({params}:{params:{rid:string}})
         isAdmin = profile.data.role === "admin";
     }
 
+    // const delUser = ()=>{
+    //     fetch(`http://localhost:5000/api/v1/restaurants/${params.rid}`,{
+    //         method: "DELETE",
+    //     })
+    //     redirect("/restaurants");
+    // }
     return (
         <main className="text-center my-10">
             <div className="flex flex-row bg-slate-100 px-10 py-5">
@@ -34,9 +41,9 @@ export default async function HospitalDetailPage({params}:{params:{rid:string}})
                 </div>
             </div>
 
-            {isAdmin ? (
-                <DelButton rid={params.rid}/>
-            ):null}
+            {/* {isAdmin ? (
+                <button onClick={delUser}>Delete</button>
+            ):null} */}
         </main>
     )
 }

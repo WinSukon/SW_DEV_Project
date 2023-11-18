@@ -7,7 +7,7 @@ export default function RestaurantCard({name,imgsrc}:{name:string,imgsrc:string}
         <InteractiveCard>
             <div className='w-full h-[80%] relative rounded-t-lg'>
                 <Image src={imgsrc}
-                    alt='Covid Information'
+                    alt='Restaurant Information'
                     fill={true}
                     className='object-cover rounded-t-lg'/>
             </div>

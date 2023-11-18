@@ -5,8 +5,9 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import TextField from "./TextField";
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import dayjs, {Dayjs} from 'dayjs';
+import getRestaurants from "@/libs/getRestaurants";
 
 import {useDispatch} from 'react-redux';
 import { AppDispatch } from "@/redux/store";
@@ -14,31 +15,42 @@ import { BookingItem } from "@/interface";
 import { addBooking} from "@/redux/features/bookSlice";
 
 const Form = () => {
+    const [resJsonReady,setRes] = useState(null);
+
     //all values
     const [name,setName] = useState<string>('');
     const [surname,setSurname] = useState<string>('');
     const [id,setId] = useState<string>('');
-    const [hos,setHos] = useState<string>('Chulalongkorn Hospital')
+    const [selectedRes,setSelected] = useState<string>('')
     const [date,setDate]=useState<Dayjs|null>(null);
 
     const dispatch = useDispatch<AppDispatch>();
 
     const createBooking = () =>{
-        if(name && surname && id && hos && date){
+        if(name && surname && id && selectedRes && date){
             const item:BookingItem={
                 name:name,
                 surname:surname,
                 id:id,
-                restaurant:hos,
+                restaurant:selectedRes,
                 date:dayjs(date).format("YYYY/MM/DD")
             }
             dispatch(addBooking(item));
         }
     }
 
-    const handleHosChange=(event: SelectChangeEvent)=>{
-        setHos(event.target.value);
+    const handleResChange=(event: SelectChangeEvent)=>{
+        setSelected(event.target.value);
     }
+    useEffect(()=>{
+        const fetchData = async()=>{
+            const res = await getRestaurants()
+            setRes(res)
+        }
+        fetchData()
+    },[])
+
+    if(!resJsonReady) return (<div>loading</div>)
 
     return (  
         <div >
@@ -55,10 +67,10 @@ const Form = () => {
                 
                     <div className="text-base p-3">Select Hospital</div>
                     <div className="p-3 mb-4">
-                        <Select variant="standard" label="choose hospital" className="w-[280px]" value={hos} onChange={handleHosChange}>
-                            <MenuItem value={'Chulalongkorn Hospital'}>Chulalongkorn Hospital</MenuItem>
-                            <MenuItem value={'Rajavithi Hospital'}>Rajavithi Hospital</MenuItem>
-                            <MenuItem value={'Thammasat University Hospital'}>Thammasat University Hospital</MenuItem>
+                        <Select variant="standard" label="choose hospital" className="w-[280px]" value={selectedRes} onChange={handleResChange}>
+                            {resJsonReady.data.map((resItem:Object)=>(
+                                <MenuItem value={resItem.name}>{resItem.name}</MenuItem>
+                            ))}
                         </Select>
                     </div>
 

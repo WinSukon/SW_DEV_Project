@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 let isConnected = false
+
 export const dbConnect =async () => {
     mongoose.set("strictQuery",true)
     if(isConnected) return
@@ -14,6 +15,7 @@ export const dbConnect =async () => {
         console.log("Connected")
     } catch(error){
         console.log(error)
+        
     }
 
 }

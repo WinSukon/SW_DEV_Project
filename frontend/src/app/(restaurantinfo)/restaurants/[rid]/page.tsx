@@ -1,9 +1,20 @@
 import Image from 'next/image';
 import getRestaurant from '@/libs/getRestaurant';
+import DelButton from '@/components/delButton';
+import { getServerSession } from "next-auth";
+import getUserProfile from "@/libs/getUserProfile";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function HospitalDetailPage({params}:{params:{rid:string}}){
     
-    const resDetail = await getRestaurant(params.rid)
+    const session = await getServerSession(authOptions);
+    const resDetail = await getRestaurant(params.rid);
+    let isAdmin = false;
+
+    if (session && session.user.token) {
+        const profile = await getUserProfile(session.user.token);
+        isAdmin = profile.data.role === "admin";
+    }
 
     return (
         <main className="text-center my-10">
@@ -22,6 +33,10 @@ export default async function HospitalDetailPage({params}:{params:{rid:string}})
                 <div className='text-md mx-5 text-left'>Tel: {resDetail.data.tel}</div>
                 </div>
             </div>
+
+            {isAdmin ? (
+                <DelButton rid={params.rid}/>
+            ):null}
         </main>
     )
 }

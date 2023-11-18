@@ -16,7 +16,7 @@ export default function AddHospitalForm(){
 
         try {
             await dbConnect()
-            const hos = await Restaurant.create({
+            const res = await Restaurant.create({
             "name" :name,
             "foodtype":foodType,
             "address" : address,

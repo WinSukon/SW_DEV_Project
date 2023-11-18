@@ -14,6 +14,7 @@ import { AppDispatch } from "@/redux/store";
 import { BookingItem } from "@/interface";
 import { addBooking} from "@/redux/features/bookSlice";
 
+
 const Form = () => {
     const [resJsonReady,setRes] = useState(null);
 
@@ -37,11 +38,15 @@ const Form = () => {
             }
             dispatch(addBooking(item));
         }
+        else{
+            alert('Please Fill all the fields before submitting!')
+        }
     }
 
     const handleResChange=(event: SelectChangeEvent)=>{
         setSelected(event.target.value);
     }
+
     useEffect(()=>{
         const fetchData = async()=>{
             const res = await getRestaurants()

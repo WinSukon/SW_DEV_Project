@@ -9,17 +9,40 @@ const initialState:BookState = {
     bookItems:[]
 }
 
+
+
 export const bookslice = createSlice({
     name : 'book',
     initialState,
     reducers:{
         addBooking: (state,action:PayloadAction<BookingItem>)=>{
-            state.bookItems.push(action.payload)
+
+            const duplicate = state.bookItems.find(obj=>{
+                return !(
+                    (obj.date!==action.payload.date) ||
+                    (obj.name!==action.payload.name) ||
+                    (obj.id!==action.payload.id) ||
+                    (obj.surname!==action.payload.surname)||
+                    (obj.restaurant!==action.payload.restaurant)
+                )})
+            if(!duplicate){
+                state.bookItems.push(action.payload)
+            }
 
         },
-        cancelBooking: (state)=>{
+        cancelBooking: (state,action:PayloadAction<BookingItem>)=>{
             //!fix this
-            state.bookItems.shift();
+            const remainItem = state.bookItems.filter(obj=>{
+                return (
+                    (obj.date!==action.payload.date) ||
+                    (obj.name!==action.payload.name) ||
+                    (obj.id!==action.payload.id) ||
+                    (obj.surname!==action.payload.surname)||
+                    (obj.restaurant!==action.payload.restaurant)
+                )
+            })
+            state.bookItems=remainItem
+
         }
     }
 })

@@ -65,7 +65,7 @@ const Form = () => {
 
                 <div className="flex flex-col m-4">
                 
-                    <div className="text-base p-3">Select Hospital</div>
+                    <div className="text-base p-3">Select Restaurant</div>
                     <div className="p-3 mb-4">
                         <Select variant="standard" label="choose hospital" className="w-[280px]" value={selectedRes} onChange={handleResChange}>
                             {resJsonReady.data.map((resItem:Object)=>(

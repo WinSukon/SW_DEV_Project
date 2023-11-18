@@ -1,6 +1,5 @@
 'use client'
 import { useAppSelector } from "@/redux/store";
-import ResrvationInfo from "@/components/ReservationInfo";
 import {useDispatch} from 'react-redux';
 import { AppDispatch } from "@/redux/store";
 import { cancelBooking } from "@/redux/features/bookSlice";
@@ -16,12 +15,14 @@ export default function mybooking(){
         dispatch(cancelBooking(bookItem))
     }
     return(
-        <>
+        <div className="flex flex-col">
+            <div className="flex text-center p-5 my-10">
+                <h1 className="text-4xl font-bold w-[100%]">Reservations</h1>
+                <hr className="mt-10 border-black"></hr>
+            </div>
+            
             {bookItems.length===0 ?
-                <div className="flex">
-                    <h1>No Vaccine Booking</h1>
-                    
-                </div> 
+                <div>No Vaccine Booking</div>
                 :
                 <div>
                     {bookItems.map((bookItem:BookingItem)=>(
@@ -42,7 +43,7 @@ export default function mybooking(){
 
                 
             }
-        </>
+        </div>
   
     );
 }

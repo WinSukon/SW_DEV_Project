@@ -9,8 +9,9 @@ export default async function booking() {
     if(!session || !session.user.token){
         return (
             <main>
-                <div className='flex flex-col items-center '>
-                    <div className='text-3xl p-3 m-3'>Your New Reservation </div>
+                <div className='flex flex-col items-center text-center p-5 my-10'>
+                    <h1 className="text-4xl font-bold w-[100%]">Booking</h1>
+                    <hr className="mt-10 border-black"></hr>
                     <Form></Form>
                 </div>
             </main>
@@ -21,7 +22,7 @@ export default async function booking() {
 
     return ( 
         <main>
-            <div className='flex flex-col items-center '>
+            <div className='flex flex-col items-center text-center p-5 my-10 '>
                 <div className="bg-slate-100 m-5 p-5">
                     <div className="text-2xl">
                         {profile.data.name}
@@ -36,7 +37,8 @@ export default async function booking() {
                     </table>
                 </div>
                 
-                <div className='text-3xl p-3 m-3'>Your New Reservation </div>
+                <h1 className="text-4xl font-bold w-[100%]">Booking</h1>
+                <hr className="mt-10 border-black"></hr>
                 <Form></Form>
             </div>
         </main>

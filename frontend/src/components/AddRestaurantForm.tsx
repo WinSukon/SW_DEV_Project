@@ -3,7 +3,7 @@ import { dbConnect } from "@/db/dbConnect"
 import {revalidateTag} from "next/cache"
 import {redirect} from "next/navigation"
 
-export default function AddHospitalForm(){
+export default function AddRestaurantForm(){
     const addRestaurant = async (addResForm:FormData) => {
         "use server"
         const name = addResForm.get("resName")

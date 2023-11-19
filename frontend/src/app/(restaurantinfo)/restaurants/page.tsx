@@ -5,6 +5,7 @@ import getUserProfile from "@/libs/getUserProfile";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import DeleteRestaurant from '@/components/DeleteRestaurantForm';
+import UpdateRestaurantForm from "@/components/UpdateRestaurantForm";
 
 export default async function RestaurantList(){
     const session = await getServerSession(authOptions);
@@ -23,6 +24,7 @@ export default async function RestaurantList(){
               <div className="my-1 items-center">
                 <hr className="mt-10 border-black"></hr>
                 <AddRestaurantForm></AddRestaurantForm>
+                <UpdateRestaurantForm/>
                 <DeleteRestaurant/>
               </div>
             ) : null}  

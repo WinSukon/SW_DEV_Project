@@ -4,7 +4,7 @@ import RestaurantCatalog from "@/components/restaurantCatalog";
 import getUserProfile from "@/libs/getUserProfile";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-import DeleteRestaurant from '@/components/deleteForm';
+import DeleteRestaurant from '@/components/DeleteRestaurantForm';
 
 export default async function RestaurantList(){
     const session = await getServerSession(authOptions);

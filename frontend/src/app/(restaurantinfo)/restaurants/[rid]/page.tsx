@@ -6,7 +6,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import {redirect} from "next/navigation"
 import { dbConnect } from '@/db/dbConnect';
 import Restaurant from "@/db/models/Restaurant"
-import DeleteRestaurant from '@/components/deleteForm';
+import DeleteRestaurant from '@/components/DeleteRestaurantForm';
 
 export default async function HospitalDetailPage({params}:{params:{rid:string}}){
     

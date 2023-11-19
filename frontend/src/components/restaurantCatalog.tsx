@@ -3,7 +3,7 @@ import Link from "next/link";
 import RestaurantCard from "./restaurantCard";
 import { useEffect, useState } from "react";
 import getRestaurants from "@/libs/getRestaurants";
-import DeleteRestaurant from "./deleteForm";
+import DeleteRestaurant from "./DeleteRestaurantForm";
 
 export default function RestaurantCatalog(){
 

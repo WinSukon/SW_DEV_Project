@@ -15,7 +15,7 @@ export default function DeleteRestaurant(){
         catch(error){
             console.log(error)
         }
-        redirect("/restaurants")
+        redirect("/")
     }
 
     return(

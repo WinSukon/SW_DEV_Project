@@ -3,6 +3,7 @@ import Link from "next/link";
 import RestaurantCard from "./restaurantCard";
 import { useEffect, useState } from "react";
 import getRestaurants from "@/libs/getRestaurants";
+import DeleteRestaurant from "./deleteForm";
 
 export default function RestaurantCatalog(){
 
@@ -24,10 +25,10 @@ export default function RestaurantCatalog(){
                 <Link href={`/restaurants/${resItem.id}`} 
                 className="w-[100%] sm:w-[50%] lg:w-[25%] p-2 sm:p-4 md:p-4 lg:p-8 m-[20]">
                     
-                <RestaurantCard name={resItem.name} imgsrc={resItem.picture}
-                />
+                <RestaurantCard name={resItem.name} imgsrc={resItem.picture}/>
                 </Link>
                 ))}
+                
         </div>
         </>
     )

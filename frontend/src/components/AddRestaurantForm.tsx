@@ -22,7 +22,7 @@ export default function AddRestaurantForm(){
             "address" : address,
             "province" : province,
             "postalcode" : postalcode,
-            "tel ": tel,
+            "tel": tel,
             "picture": picture
             })
         }
@@ -31,7 +31,7 @@ export default function AddRestaurantForm(){
         }
 
         revalidateTag("ress")
-        redirect("/restaurants")
+        redirect("/")
     }
     return (
         <form action={addRestaurant} className="w-[100%] flex flex-col bold items-center space-y-4 mt-[50px] bg-slate-100 

@@ -7,14 +7,17 @@ import {redirect} from "next/navigation"
 import Booking from "@/db/models/Booking";
 
 export async function postBooking(bookingInfo:BookingItem) {
+    console.log('success??????')
+
     try {
         await dbConnect()
         const res = await Booking.create(bookingInfo)
+        console.log('success?')
     }
     catch(error){
         console.log(error)
     }
 
     revalidateTag("ress")
-    redirect("/")
+    redirect("/mybooking")
 }

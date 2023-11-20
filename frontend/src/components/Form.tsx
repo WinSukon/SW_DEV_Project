@@ -19,8 +19,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 
 const Form = () => {
+    //all values for booking interface
     const {data:session}=useSession()
-    //all values
     const [date,setDate]=useState<Dayjs|null>(null);
     const [numOfGuests,setNum] =useState<number>(0);
     const [selectedRes,setSelected] = useState<string>('')
@@ -95,8 +95,8 @@ const Form = () => {
                     ))}
                 </Select>
             </div>
-               
-            <div className="">
+
+            <div className="flex ">
                 <div className="p-3 text-base">Number of people</div>
                 <div className="p-2">
                     <input className="p-1 rounded ring-1 ring-inset ring-gray-400 text-md leading-6 indent-2 placeholder:text-gray-400"
@@ -110,11 +110,10 @@ const Form = () => {
                 </div>
             </div>
 
-            <div className="left-[46%] absolute m-0">
+            <div className="flex left-[46%] absolute m-0">
                 <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600"
                     onClick={createBooking}
                 >Confirm Booking</button>
-
             </div>
         </form>
     );

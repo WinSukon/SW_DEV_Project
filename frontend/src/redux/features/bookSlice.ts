@@ -9,8 +9,6 @@ const initialState:BookState = {
     bookItems:[]
 }
 
-
-
 export const bookslice = createSlice({
     name : 'book',
     initialState,
@@ -22,11 +20,9 @@ export const bookslice = createSlice({
             else{
                 const duplicate = state.bookItems.find(obj=>{
                     return !(
-                        (obj.date!==action.payload.date) ||
-                        (obj.name!==action.payload.name) ||
-                        (obj.id!==action.payload.id) ||
-                        (obj.surname!==action.payload.surname)||
-                        (obj.restaurant!==action.payload.restaurant)
+                        (obj.bookingDate!==action.payload.bookingDate) ||
+                        (obj.numOfGuests!==action.payload.numOfGuests) ||
+                        (obj.restaurant!==action.payload.restaurant) 
                     )})
                 if(!duplicate){
                     state.bookItems.push(action.payload)
@@ -35,22 +31,16 @@ export const bookslice = createSlice({
                     alert("Can't book a duplicate reservation. You booked it already!")
                 }
             }
-           
-
         },
         cancelBooking: (state,action:PayloadAction<BookingItem>)=>{
-            //!fix this
             const remainItem = state.bookItems.filter(obj=>{
                 return (
-                    (obj.date!==action.payload.date) ||
-                    (obj.name!==action.payload.name) ||
-                    (obj.id!==action.payload.id) ||
-                    (obj.surname!==action.payload.surname)||
-                    (obj.restaurant!==action.payload.restaurant)
+                    (obj.bookingDate!==action.payload.bookingDate) ||
+                    (obj.numOfGuests!==action.payload.numOfGuests) ||
+                    (obj.restaurant!==action.payload.restaurant) 
                 )
             })
             state.bookItems=remainItem
-
         }
     }
 })

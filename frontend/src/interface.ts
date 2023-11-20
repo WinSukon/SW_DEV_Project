@@ -1,7 +1,5 @@
 export interface BookingItem{
-    name:string,
-    surname:string,
-    id:string,
-    restaurant:string,
-    date:string
+    bookingDate: String,
+    numOfGuests: Number,
+    restaurant: String,
 }

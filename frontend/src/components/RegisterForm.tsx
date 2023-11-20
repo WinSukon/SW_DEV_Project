@@ -27,7 +27,7 @@ export default function RegisterUser(){
         catch(error){
             console.log(error)
         }
-        // redirect("/")
+        redirect("/register/success")
     }
 
     return(

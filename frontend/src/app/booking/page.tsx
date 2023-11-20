@@ -27,7 +27,7 @@ export default async function booking() {
             <hr className="mt-10 border-black"></hr>
 
             <div className='flex flex-col items-center  '>
-                {/* <div className="bg-slate-100 m-5 p-5">
+                <div className="bg-slate-100 m-5 p-5">
                     <div className="text-2xl">
                         {profile.data.name}
                     </div> 

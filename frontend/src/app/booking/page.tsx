@@ -13,7 +13,7 @@ export default async function booking() {
                 <hr className="mt-10 border-black"></hr>
 
                 <div className='flex flex-col items-center '>
-                    <Form></Form>
+                    <h1>Loading</h1>
                 </div>
             </main>
         ); 
@@ -40,7 +40,7 @@ export default async function booking() {
                         </tbody>
                     </table>
                 </div> */}
-                <Form></Form>     
+                <Form user={profile.data}></Form>     
             </div>
 
         </main>

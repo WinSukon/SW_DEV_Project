@@ -50,7 +50,7 @@ const Form = () => {
                     }
                     dispatch(addBooking(item));
                     //post new booking to db
-                    postBooking(item)
+                    // postBooking(item)
                 }
                 else{
                     alert("Can't book a duplicate reservation. You booked it already!")
@@ -79,7 +79,7 @@ const Form = () => {
     if(!resJsonReady) return (<div>loading</div>)
 
     return (  
-        <form className="flex flex-col">
+        <form className="flex flex-col" action={createBooking}>
             <div className="p-3 mt-4">Select Date</div>
             <div className="p-3">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -96,23 +96,22 @@ const Form = () => {
                 </Select>
             </div>
 
-            <div className="flex ">
-                <div className="p-3 text-base">Number of people</div>
-                <div className="p-2">
-                    <input className="p-1 rounded ring-1 ring-inset ring-gray-400 text-md leading-6 indent-2 placeholder:text-gray-400"
-                    type="number" 
-                    placeholder="Number of people"
-                    name="Number of people"
-                    value={numOfGuests}
-                    onChange={(e)=>{
-                        setNum(Number(e.target.value)); 
-                    }}></input>
-                </div>
+           
+            <div className="p-3 text-base">Number of people</div>
+            <div className="p-2">
+                <input className="p-1 rounded ring-1 ring-inset ring-gray-400 text-md leading-6 indent-2 placeholder:text-gray-400"
+                type="number" 
+                placeholder="Number of people"
+                name="Number of people"
+                value={numOfGuests}
+                onChange={(e)=>{
+                    setNum(Number(e.target.value)); 
+                }}></input>
             </div>
-
-            <div className="flex left-[46%] absolute m-0">
+           
+            <div className="flex  m-0">
                 <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600"
-                    onClick={createBooking}
+                         type="submit"
                 >Confirm Booking</button>
             </div>
         </form>

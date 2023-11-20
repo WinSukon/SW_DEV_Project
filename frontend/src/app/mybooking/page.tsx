@@ -35,6 +35,7 @@ export default function mybooking(){
                                 <div className="text-lg">{bookItem.restaurant}</div>
                                 <div className="text-lg">{bookItem.numOfGuests.toString()}</div>
                                 <div className="text-lg">{bookItem.bookingDate}</div>
+                                <div className="text-lg">{bookItem.user}</div>
                                 <div className="left-[46%]  m-0">
                                     <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600" 
                                     onClick={()=>{cancel(bookItem)}}>Cancel Booking</button>

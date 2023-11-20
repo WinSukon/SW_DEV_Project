@@ -1,5 +1,5 @@
 export interface BookingItem{
-    bookingDate: Date,
+    bookingDate: String,
     numOfGuests: Number,
     restaurant: String,
 }

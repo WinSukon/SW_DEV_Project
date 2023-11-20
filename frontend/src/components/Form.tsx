@@ -18,26 +18,25 @@ import { Select , MenuItem , SelectChangeEvent } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput';
 
 
 const Form = () => {
     const {data:session}=useSession()
     //all values
-
-    const [selectedRes,setSelected] = useState<string>('')
     const [date,setDate]=useState<Dayjs|null>(null);
+    const [numOfGuests,setNum] =useState<number>(0);
+    const [selectedRes,setSelected] = useState<string>('')
+
 
     const dispatch = useDispatch<AppDispatch>();
 
+    //create booking in redux
     const createBooking = () =>{
-        if(name && id && selectedRes && date){
+        if(numOfGuests && date && selectedRes ){
             const item:BookingItem={
-                name:name,
-                surname:surname,
-                id:id,
+                numOfGuests:numOfGuests,
                 restaurant:selectedRes,
-                date:dayjs(date).format("YYYY/MM/DD")
+                bookingDate:dayjs(date).format("YYYY/MM/DD")
             }
             dispatch(addBooking(item));
         }
@@ -46,10 +45,10 @@ const Form = () => {
         }
     }
 
+    //handle form state
     const handleResChange=(event: SelectChangeEvent)=>{
         setSelected(event.target.value);
     }
-
 
     const [resJsonReady,setRes] = useState(null);
 
@@ -81,7 +80,20 @@ const Form = () => {
                 </Select>
             </div>
 
-            <NumberInput min={0} value={val}/>
+                     
+            <div className="">
+                <div className="p-3 text-base">Number of people</div>
+                <div className="p-2">
+                    <input className="p-1 rounded ring-1 ring-inset ring-gray-400 text-md leading-6 indent-2 placeholder:text-gray-400"
+                    type="number" 
+                    placeholder="Number of people"
+                    name="Number of people"
+                    value={numOfGuests}
+                    onChange={(e)=>{
+                        setNum(Number(e.target.value)); 
+                    }}></input>
+                </div>
+            </div>
 
             <div className="left-[46%] absolute m-0">
                 <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600"

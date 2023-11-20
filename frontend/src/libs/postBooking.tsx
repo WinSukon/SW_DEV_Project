@@ -6,15 +6,21 @@ import {revalidateTag} from "next/cache"
 import {redirect} from "next/navigation"
 import Booking from "@/db/models/Booking";
 
-export async function postBooking(bookingInfo:BookingItem) {
+export async function postBooking(date:Date,numGuest:Number,user:Object,res:Object) {
     console.log('success??????')
 
     try {
         await dbConnect()
-        const res = await Booking.create(bookingInfo)
+        const book = await Booking.create({
+            "bookingDate": date ,
+            "numOfGuests": numGuest,
+            "user": user ,
+            "restaurant": res,
+        })
         console.log('success?')
     }
     catch(error){
+        console.log('fail?')
         console.log(error)
     }
 

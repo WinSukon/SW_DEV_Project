@@ -1,17 +1,15 @@
 'use client'
 import {useState,useEffect} from 'react';
-import getRestaurants from "@/libs/getRestaurants";
-
-import {useDispatch} from 'react-redux';
-import { AppDispatch } from "@/redux/store";
 import { BookingItem } from "@/interface";
+//redux
+import {useDispatch} from 'react-redux';
+import { AppDispatch,useAppSelector } from "@/redux/store";
 import { addBooking} from "@/redux/features/bookSlice";
-
-import getUserProfile from "@/libs/getUserProfile";
+//libs
+import { postBooking } from '@/libs/postBooking';
+import getRestaurants from "@/libs/getRestaurants";
 //next auth
 import {useSession} from 'next-auth/react'
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-
 //mui
 import dayjs, {Dayjs} from 'dayjs';
 import { Select , MenuItem , SelectChangeEvent } from "@mui/material";
@@ -27,24 +25,42 @@ const Form = () => {
     const [numOfGuests,setNum] =useState<number>(0);
     const [selectedRes,setSelected] = useState<string>('')
 
-
-    const dispatch = useDispatch<AppDispatch>();
-
     //create booking in redux
+    const dispatch = useDispatch<AppDispatch>();
+    const currentBookings = useAppSelector((state)=>state.bookSlice.bookItems)
+
     const createBooking = () =>{
-        if(numOfGuests && date && selectedRes ){
-            const item:BookingItem={
-                numOfGuests:numOfGuests,
-                restaurant:selectedRes,
-                bookingDate:dayjs(date).format("YYYY/MM/DD")
+        if(numOfGuests && date && selectedRes && session?.user?.name ){
+            if(currentBookings.length===3){
+                alert("Can't book more than 3 reservations. Please remove a reservation before booking!")
             }
-            dispatch(addBooking(item));
+            else{
+                const duplicate = currentBookings.find(obj=>{
+                    return !(
+                        (obj.bookingDate!==dayjs(date).format("YYYY/MM/DD")) ||
+                        (obj.numOfGuests!==numOfGuests) ||
+                        (obj.restaurant!==selectedRes) 
+                    )})
+                if(!duplicate){
+                    const item:BookingItem={
+                        numOfGuests:numOfGuests,
+                        restaurant:selectedRes,
+                        bookingDate:dayjs(date).format("YYYY/MM/DD"),
+                        user : session?.user?.name
+                    }
+                    dispatch(addBooking(item));
+                    //post new booking to db
+                    postBooking(item)
+                }
+                else{
+                    alert("Can't book a duplicate reservation. You booked it already!")
+                }
+            }
         }
         else{
             alert('Please Fill all the fields before submitting!')
         }
     }
-
     //handle form state
     const handleResChange=(event: SelectChangeEvent)=>{
         setSelected(event.target.value);

@@ -21,12 +21,12 @@ const LoginPage = () => {
       <div className="px-20 py-[50px] shadow bg-[#FFEDC0] rounded-md flex flex-col gap-2 justify-center items-center">
         <div className="font-bold text-4xl">Login</div>
         <TextBox
-          labelText="Email"
+          labelText="Email" placeholder="Email"
           onChange={(e) => (userName.current = e.target.value)}
         />
         <TextBox
           labelText="Password"
-          type={"password"}
+          type={"password"} placeholder="Password"
           onChange={(e) => (pass.current = e.target.value)}
         />
         <button className={'bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75'}onClick={onSubmit}>Login</button>

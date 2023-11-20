@@ -33,7 +33,14 @@ export const authOptions:AuthOptions = {
         session.user = token as any
         return session
       }
-    }
+    },
+
+    theme:{
+      colorScheme: "light", // "auto" | "dark" | "light"
+      brandColor: "#ffedc0", // Hex color code
+      logo: "", // Absolute URL to image
+      buttonText: "#000000", // Hex color code
+    },
 }
 
 const handler = NextAuth(authOptions)

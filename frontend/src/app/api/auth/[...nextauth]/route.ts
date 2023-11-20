@@ -34,13 +34,15 @@ export const authOptions:AuthOptions = {
         return session
       }
     },
-
-    theme:{
-      colorScheme: "light", // "auto" | "dark" | "light"
-      brandColor: "#ffedc0", // Hex color code
-      logo: "", // Absolute URL to image
-      buttonText: "#000000", // Hex color code
+    pages: {
+      signIn: "/signIn",
     },
+    // theme:{
+    //   colorScheme: "light", // "auto" | "dark" | "light"
+    //   brandColor: "#ffedc0", // Hex color code
+    //   logo: "", // Absolute URL to image
+    //   buttonText: "#000000", // Hex color code
+    // },
 }
 
 const handler = NextAuth(authOptions)

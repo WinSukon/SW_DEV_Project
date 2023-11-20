@@ -24,6 +24,6 @@ export async function postBooking(date:Date,numGuest:Number,user:Object,res:Obje
         console.log(error)
     }
 
-    revalidateTag("ress")
+    // revalidateTag("ress")
     redirect("/mybooking")
 }

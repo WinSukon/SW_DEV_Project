@@ -17,13 +17,13 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 
-const Form = ({user}:{user:Object}) => {
+const Form = ({user,isEditing}:{user:Object,isEditing:Boolean}) => {
     //all values for booking interface
     const [date,setDate]=useState<Dayjs|null>(null);
     const [numOfGuests,setNum] =useState<number>(0);
     const [selectedResId,setSelected] = useState<string>('')
 
-    //create booking in redux
+    //create booking in redux and db
     const dispatch = useDispatch<AppDispatch>();
     const currentBookings = useAppSelector((state)=>state.bookSlice.bookItems)
 
@@ -64,6 +64,10 @@ const Form = ({user}:{user:Object}) => {
             alert('Please Fill all the fields before submitting!')
         }
     }
+
+    const editBooking=()=>{
+
+    }
     //handle form state
     const handleResChange=(event: SelectChangeEvent)=>{
         setSelected(event.target.value);
@@ -79,10 +83,14 @@ const Form = ({user}:{user:Object}) => {
         fetchData()
     },[])
 
+    const handleSubmit = (isEditing:Boolean)=>{
+        isEditing ? editBooking : createBooking
+    }
+
     if(!resJson) return (<div>loading</div>)
 
     return (  
-        <form className="flex flex-col" action={createBooking}>
+        <form className="flex flex-col" action={handleSubmit}>
             <div className="p-3 mt-4">Select Date</div>
             <div className="p-3">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -111,12 +119,19 @@ const Form = ({user}:{user:Object}) => {
                     setNum(Number(e.target.value)); 
                 }}></input>
             </div>
-           
-            <div className="flex  m-0">
+           {isEditing ?
+           <div className="flex  m-0">
+                <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600"
+                            type="submit"
+                >Edit Booking</button>
+           </div> 
+           :
+           <div className="flex  m-0">
                 <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600"
                          type="submit"
                 >Confirm Booking</button>
-            </div>
+            </div>}
+            
         </form>
     );
 }

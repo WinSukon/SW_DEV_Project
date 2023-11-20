@@ -79,7 +79,7 @@ const Form = () => {
     if(!resJsonReady) return (<div>loading</div>)
 
     return (  
-        <form action={} className="flex flex-col">
+        <form className="flex flex-col">
             <div className="p-3 mt-4">Select Date</div>
             <div className="p-3">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -95,8 +95,7 @@ const Form = () => {
                     ))}
                 </Select>
             </div>
-
-                     
+               
             <div className="">
                 <div className="p-3 text-base">Number of people</div>
                 <div className="p-2">

@@ -66,7 +66,9 @@ const Form = ({user,isEditing}:{user:Object,isEditing:Boolean}) => {
     }
 
     const editBooking=()=>{
+        //update data in redux
 
+        //update data in db
     }
     //handle form state
     const handleResChange=(event: SelectChangeEvent)=>{
@@ -106,8 +108,7 @@ const Form = ({user,isEditing}:{user:Object,isEditing:Boolean}) => {
                     ))}
                 </Select>
             </div>
-
-           
+     
             <div className="p-3 text-base">Number of people</div>
             <div className="p-2">
                 <input className="p-1 rounded ring-1 ring-inset ring-gray-400 text-md leading-6 indent-2 placeholder:text-gray-400"
@@ -123,7 +124,7 @@ const Form = ({user,isEditing}:{user:Object,isEditing:Boolean}) => {
            <div className="flex  m-0">
                 <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600"
                             type="submit"
-                >Edit Booking</button>
+                >Confirm Edit</button>
            </div> 
            :
            <div className="flex  m-0">

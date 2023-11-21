@@ -25,10 +25,17 @@ export const bookslice = createSlice({
                 )
             })
             state.bookItems=remainItem
+        },
+        updateBooking: (state,action:PayloadAction<BookingItem>)=>{
+            state.bookItems.forEach(bookItem=>{
+                if(bookItem._id===action.payload._id){
+                    bookItem=action.payload
+                }
+            })
         }
     }
 })
 
-export const {addBooking,cancelBooking} = bookslice.actions
+export const {addBooking,cancelBooking,updateBooking} = bookslice.actions
 
 export default bookslice.reducer

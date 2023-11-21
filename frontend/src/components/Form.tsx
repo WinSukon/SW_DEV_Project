@@ -9,6 +9,7 @@ import { addBooking,updateBooking} from "@/redux/features/bookSlice";
 import { postBooking } from '@/libs/postBooking';
 import getRestaurants from "@/libs/getRestaurants";
 import genid from '@/libs/genIdforObject';
+import { updateBookingDB } from '@/libs/updateBookingDB';
 
 //mui
 import dayjs, {Dayjs} from 'dayjs';
@@ -67,34 +68,52 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
 
     const editBooking=()=>{
         if (bookItemtoEdit){
-            const duplicate = findDupeBooking()
-            const restaurant=resJson.data.find((resItem:Object)=>{
-                if(resItem._id==selectedResId) return resItem
-            })
-    
-            if(!duplicate){
-                const item:BookingItem={
-                    _id:bookItemtoEdit._id,
-                    numOfGuests:numOfGuests,
-                    bookingDate:dayjs(date).format("YYYY/MM/DD"),
-                    user : user.name,
-                    restaurant:{
-                        _id:selectedResId,
-                        name:restaurant.name,
-                        pic:restaurant.picture
+            if(numOfGuests>=0 && date && selectedResId && user.name ){
+                const duplicate = findDupeBooking()
+                const restaurant=resJson.data.find((resItem:Object)=>{
+                    if(resItem._id==selectedResId) return resItem
+                })
+        
+                if(!duplicate){
+                    const item:BookingItem={
+                        _id:bookItemtoEdit._id,
+                        numOfGuests:numOfGuests,
+                        bookingDate:dayjs(date).format("YYYY/MM/DD"),
+                        user : user.name,
+                        restaurant:{
+                            _id:selectedResId,
+                            name:restaurant.name,
+                            pic:restaurant.picture
+                        }
                     }
-                }
-                //update data in redux
-                dispatch(updateBooking(item));
-                //!update data in db
+                    //update data in redux
+                    dispatch(updateBooking(item));
+                    //!update data in db
+                    const restoFind=resJson.data.find((resItem:Object)=>{
+                        if(resItem._id==bookItemtoEdit.restaurant._id) return resItem
+                    })
+                    const before={
+                        date:new Date(bookItemtoEdit.bookingDate),
+                        numGuest:bookItemtoEdit.numOfGuests,
+                        user:user,
+                        res:restoFind
+                    }
+                    const after={
+                        date:date.toDate(),
+                        numGuest:numOfGuests,
+                        user:user,
+                        res:restaurant}
 
-               
+                    updateBookingDB(before,after)
+                }
+                else{
+                    alert("Can't book a duplicate reservation. You booked it already!")
+                }
             }
             else{
-                alert("Can't book a duplicate reservation. You booked it already!")
+                alert('Please Fill all the fields before submitting!')
             }
         }
-
     }
 
     //handle form 

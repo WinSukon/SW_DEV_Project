@@ -22,7 +22,7 @@ export default async function booking() {
     var createAt = new Date(profile.data.createdAt);
 
     return ( 
-        <main className='p-5 my-10'>
+        <main className=' px-20 py-[50px] shadow bg-[#FFEDC0] rounded-md my-3 mx-4'>
             <h1 className="text-4xl text-center font-bold w-[100%]">Booking</h1>
             <hr className="mt-10 border-black"></hr>
 

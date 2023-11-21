@@ -1,5 +1,5 @@
 export interface BookingItem{
-    _id:String,
+    _id:string,
     bookingDate: string,
     numOfGuests: number,
     user: String,

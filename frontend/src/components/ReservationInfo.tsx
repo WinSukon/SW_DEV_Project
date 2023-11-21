@@ -12,6 +12,7 @@ import Image from "next/image";
 
 const ReservationInfo = ({profile}:{profile:Object}) => {
     const [isEditing,setEdit] = useState<Boolean>(false)
+    const [selectedBooked,setBooked] =useState<BookingItem>()
     const dispatch = useDispatch<AppDispatch>();
     const bookItems = useAppSelector((state)=>state.bookSlice.bookItems)
 
@@ -21,7 +22,7 @@ const ReservationInfo = ({profile}:{profile:Object}) => {
     }
     return ( 
         <div className="flex flex-col">
-            {isEditing ? <Form user={profile.data} isEditing={true}></Form> : null}
+            {isEditing ? <Form user={profile.data} isEditing={true} bookItem={selectedBooked}></Form> : null}
 
             {bookItems.length===0 ?
                 <div>No Vaccine Booking</div>
@@ -43,7 +44,11 @@ const ReservationInfo = ({profile}:{profile:Object}) => {
                                 <div className="text-lg">{bookItem.user}</div>
                                 <div className="left-[46%]  m-0">
                                     <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600" 
-                                    onClick={()=>{setEdit(true)}}>Edit Booking</button>
+                                    onClick={()=>{setEdit(true); setBooked(bookItem);}}>Edit Booking</button>
+                                </div>
+                                <div className="left-[46%]  m-0">
+                                    <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600" 
+                                    onClick={()=>cancel(bookItem)}>cancel Booking</button>
                                 </div>
                             </div>
                         </div>

@@ -27,11 +27,17 @@ export const bookslice = createSlice({
             state.bookItems=remainItem
         },
         updateBooking: (state,action:PayloadAction<BookingItem>)=>{
+            const newBooking:BookingItem[] = []
             state.bookItems.forEach(bookItem=>{
                 if(bookItem._id===action.payload._id){
-                    bookItem=action.payload
+                    newBooking.push(action.payload)
+                }
+                else{
+                    newBooking.push(bookItem)
                 }
             })
+            state.bookItems=newBooking
+            console.log('casddghfgdfsca')
         }
     }
 })

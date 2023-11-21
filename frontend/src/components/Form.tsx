@@ -4,10 +4,11 @@ import { BookingItem } from "@/interface";
 //redux
 import {useDispatch} from 'react-redux';
 import { AppDispatch,useAppSelector } from "@/redux/store";
-import { addBooking} from "@/redux/features/bookSlice";
+import { addBooking,updateBooking} from "@/redux/features/bookSlice";
 //libs
 import { postBooking } from '@/libs/postBooking';
 import getRestaurants from "@/libs/getRestaurants";
+import genid from '@/libs/genIdforObject';
 
 //mui
 import dayjs, {Dayjs} from 'dayjs';
@@ -17,7 +18,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 
-const Form = ({user,isEditing}:{user:Object,isEditing:Boolean}) => {
+const Form = ({user,isEditing,bookItem}:{user:Object,isEditing:Boolean,bookItem?:BookingItem}) => {
     //all values for booking interface
     const [date,setDate]=useState<Dayjs|null>(null);
     const [numOfGuests,setNum] =useState<number>(0);
@@ -33,18 +34,14 @@ const Form = ({user,isEditing}:{user:Object,isEditing:Boolean}) => {
                 alert("Can't book more than 3 reservations. Please remove a reservation before booking!")
             }
             else{
-                const duplicate = currentBookings.find(obj=>{
-                    return !(
-                        (obj.bookingDate!==dayjs(date).format("YYYY/MM/DD")) ||
-                        (obj.numOfGuests!==numOfGuests) ||
-                        (obj.restaurant!==selectedResId) 
-                    )})
+                const duplicate = findDupeBooking()
                 const restaurant=resJson.data.find((resItem:Object)=>{
                         if(resItem._id==selectedResId) return resItem
                     }
                 )
                 if(!duplicate){
                     const item:BookingItem={
+                        _id:genid(),
                         numOfGuests:numOfGuests,
                         restaurant:restaurant.name,
                         bookingDate:dayjs(date).format("YYYY/MM/DD"),
@@ -67,10 +64,42 @@ const Form = ({user,isEditing}:{user:Object,isEditing:Boolean}) => {
 
     const editBooking=()=>{
         //update data in redux
+        if (bookItem){
+            const duplicate = findDupeBooking()
+            const restaurant=resJson.data.find((resItem:Object)=>{
+                if(resItem._id==selectedResId) return resItem
+            })
+    
+            if(!duplicate){
+                const item:BookingItem={
+                    _id:bookItem._id,
+                    numOfGuests:numOfGuests,
+                    restaurant:restaurant.name,
+                    bookingDate:dayjs(date).format("YYYY/MM/DD"),
+                    user : user.name
+                }
+                dispatch(updateBooking(item));
+                console.log('dispatch done')
+               
+            }
+            else{
+                alert("Can't book a duplicate reservation. You booked it already!")
+            }
+        }
 
         //update data in db
     }
     //handle form state
+
+    const findDupeBooking = ()=>{
+        return currentBookings.find(obj=>{
+            return !(
+                (obj.bookingDate!==dayjs(date).format("YYYY/MM/DD")) ||
+                (obj.numOfGuests!==numOfGuests) ||
+                (obj.restaurant!==selectedResId) 
+            )})
+    }
+
     const handleResChange=(event: SelectChangeEvent)=>{
         setSelected(event.target.value);
     }
@@ -86,7 +115,7 @@ const Form = ({user,isEditing}:{user:Object,isEditing:Boolean}) => {
     },[])
 
     const handleSubmit = (isEditing:Boolean)=>{
-        isEditing ? editBooking : createBooking
+        isEditing ? editBooking() : createBooking()
     }
 
     if(!resJson) return (<div>loading</div>)

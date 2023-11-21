@@ -15,10 +15,10 @@ import getRestaurants from "@/libs/getRestaurants";
 
 const Reservations = ({profile}:{profile:Object}) => {
     //setup Hooks
-    const [isEditing,setEdit] = useState<Boolean>(false)
+    const [isEditing,setEdit] = useState<boolean>(false)
     const [editingBook,setEditingBook] = useState<BookingItem>()//set when click on edit and cancel only
-    const [isCanceling,setCancel] = useState<Boolean>(false)
-    
+    const [isCanceling,setCancel] = useState<boolean>(false)
+    const [isDisable,setDisable]= useState<boolean>(false)
     //get current bookItems
     const bookItems = useAppSelector((state)=>state.bookSlice.bookItems)
 
@@ -96,12 +96,16 @@ const Reservations = ({profile}:{profile:Object}) => {
 
                                 <div className="left-[46%]  m-0">
                                     <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600" 
-                                    onClick={()=>{setEdit(true); setEditingBook(bookItem);}}>Edit Booking</button>
+                                            onClick={()=>{setEdit(true); setEditingBook(bookItem); setDisable(true)}}
+                                            disabled={isDisable}
+                                            >Edit Booking</button>
                                 </div>
 
                                 <div className="left-[46%]  m-0">
                                     <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600" 
-                                    onClick={()=>{setCancel(true); setEditingBook(bookItem)}}>cancel Booking</button>
+                                    onClick={()=>{setCancel(true); setEditingBook(bookItem); setDisable(true)}}
+                                    disabled={isDisable}
+                                    >cancel Booking</button>
                                 </div>
                             </div>
                         </div>

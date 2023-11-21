@@ -37,79 +37,84 @@ export default function UpdateRestaurantForm(){
         }
 
         revalidateTag("ress")
-        redirect("/")
+        redirect("/restaurants")
     }
     return (
-        <form action={updateRestaurant} className="w-[100%] flex flex-col bold items-center space-y-4 mt-[50px] bg-slate-100 
-        rounded-lg space-x-5 px-10 py-5 justify center mx-auto">
-            <div className="text-xl text-blue-700">Update Restaurant</div>
-
-            <div className="flex items-center w-1/2 my-2">
-                <label className="w-auto block text-gray-700 pr-4" htmlFor="resId">
+        <form action={updateRestaurant} className="px-20 py-[50px] shadow bg-[#FFEDC0] rounded-md flex flex-col gap-2 justify-center items-center my-5">
+            <div className="font-bold text-4xl">Update Restaurant</div>
+            <div className="relative">
+                <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="resId">
                     Restaurant Id</label>
+                <div className="flex items-stretch">
                 <input type="text" required id="resId" name="resId" placeholder="Restaurant's Id"
-                className="bg-white border-2 border-gray-200 rounded w-full p-2
-                text-gray-700 focus:outline-none focus:border-blue-400"/>
+                className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
+                </div>
             </div>
 
-            <div className="flex items-center w-1/2 my-2">
-                <label className="w-auto block text-gray-700 pr-4" htmlFor="resName">
+            <div className="relative">
+                <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="resName">
                     Restaurant Name</label>
+                <div className="flex items-stretch">
                 <input type="text" required id="resName" name="resName" placeholder="Restaurant's Name"
-                className="bg-white border-2 border-gray-200 rounded w-full p-2
-                text-gray-700 focus:outline-none focus:border-blue-400"/>
+                className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
+                </div>
             </div>
 
-            <div className="flex items-center w-1/2 my-2">
-                <label className="w-auto block text-gray-700 pr-4" htmlFor="ftype">
+            <div className="relative">
+                <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="ftype">
                     Food Type</label>
+                <div className="flex items-stretch">
                 <input type="text" required id="ftype" name="ftype" placeholder="Food Type"
-                className="bg-white border-2 border-gray-200 rounded w-full p-2
-                text-gray-700 focus:outline-none focus:border-blue-400"/>
+                className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
+                </div>
             </div>
 
-            <div className="flex items-center w-1/2 my-2">
-                <label className="w-auto block text-gray-700 pr-4" htmlFor="addr">
+            <div className="relative">
+                <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="addr">
                     Address</label>
+                <div className="flex items-stretch">
                 <input type="text" required id="addr" name="addr" placeholder="Restaurant's Address"
-                className="bg-white border-2 border-gray-200 rounded w-full p-2
-                text-gray-700 focus:outline-none focus:border-blue-400"/>
+                className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
+                </div>
             </div>
 
-            <div className="flex items-center w-1/2 my-2">
-                <label className="w-auto block text-gray-700 pr-4" htmlFor="province">
+            <div className="relative">
+                <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="province">
                     Province</label>
+                <div className="flex items-stretch">
                 <input type="text" required id="province" name="province" placeholder="Restaurant's Province"
-                className="bg-white border-2 border-gray-200 rounded w-full p-2
-                text-gray-700 focus:outline-none focus:border-blue-400"/>
+                className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
+                </div>
             </div>
 
-            <div className="flex items-center w-1/2 my-2">
-                <label className="w-auto block text-gray-700 pr-4" htmlFor="posCode">
+            <div className="relative">
+                <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="posCode">
                     Postal Code</label>
+                <div className="flex items-stretch">
                 <input type="text" required id="posCode" name="posCode" placeholder="Postal Code"
-                className="bg-white border-2 border-gray-200 rounded w-full p-2
-                text-gray-700 focus:outline-none focus:border-blue-400"/>
+                className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
+                </div>
             </div>
 
-            <div className="flex items-center w-1/2 my-2">
-                <label className="w-auto block text-gray-700 pr-4" htmlFor="tel">
+            <div className="relative">
+                <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="tel">
                     Telephone Number</label>
+                <div className="flex items-stretch">
                 <input type="text" required id="tel" name="tel" placeholder="Telephone Number"
-                className="bg-white border-2 border-gray-200 rounded w-full p-2
-                text-gray-700 focus:outline-none focus:border-blue-400"/>
+                className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
+                </div>
             </div>
 
-            <div className="flex items-center w-1/2 my-2">
-                <label className="w-auto block text-gray-700 pr-4" htmlFor="picture">
+            <div className="relative">
+                <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="picture">
                     Picture</label>
+                <div className="flex items-stretch">
                 <input type="text" required id="picture" name="picture" placeholder="Picture's URL"
-                className="bg-white border-2 border-gray-200 rounded w-full p-2
-                text-gray-700 focus:outline-none focus:border-blue-400"/>
+                className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
+                </div>
             </div>
 
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700
-            text-white p-2 rounded">Update Restaurant</button>
+            <button type="submit" className="bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75">Update Restaurant</button>
         </form>
     )
 }

@@ -5,6 +5,7 @@ import getUserProfile from "@/libs/getUserProfile";
 import { getServerSession } from "next-auth";
 import DeleteRestaurant from '@/components/DeleteRestaurantForm';
 import UpdateRestaurantForm from "@/components/UpdateRestaurantForm";
+import Link from "next/link";
 
 
 export default async function RestaurantList(){
@@ -17,17 +18,24 @@ export default async function RestaurantList(){
     }
     return(
         <main className="text-center p-5 my-10">
-            <h1 className="text-4xl font-bold w-[100%]">Restaurant List</h1>
-            <hr className="mt-10 border-black"></hr>
+          <div className="px-20 py-[50px] shadow bg-[#FFEDC0] rounded-md">
+            <hr className="mt-10 border-black bg"></hr>
+            <h1 className="text-4xl font-bold w-[100%] mt-10">Restaurant List</h1>
             <RestaurantCatalog/>
+            <hr className="mt-10 border-black bg"></hr>
             {isAdmin ? (
-              <div className="my-1 items-center">
+              <div>
+              <h1 className="text-4xl font-bold w-[100%] mt-10 ">Manage Restaurant</h1>
+              <div className="flex flex-row justify-center items-center mt-5">
                 <hr className="mt-10 border-black"></hr>
-                <AddRestaurantForm></AddRestaurantForm>
-                <UpdateRestaurantForm/>
-                <DeleteRestaurant/>
+                <Link href="/manage/restaurant/add" className="mx-5 bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75">Add Restaurant</Link>
+                <Link href="/manage/restaurant/update" className="mx-5 bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75">Update Restaurant</Link>
+                <Link href="/manage/restaurant/delete" className="mx-5 bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75">Delete Restaurant</Link>
+              </div>
+              <hr className="my-10 border-black bg"></hr>
               </div>
             ) : null}  
+            </div>
         </main>
     )
 }

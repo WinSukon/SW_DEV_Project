@@ -92,7 +92,11 @@ body {
 body {
   color: black;
   margin-top: 60px;
-  background-color: #FFEDC0;
+  /* background-color: #FFEDC0; */
+  background-image: url('/img/bg2.jpg');
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 a {

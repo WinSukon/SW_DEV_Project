@@ -15,22 +15,21 @@ export default function DeleteRestaurant(){
         catch(error){
             console.log(error)
         }
-        redirect("/")
+        redirect("/restaurants")
     }
 
     return(
-        <form action={delRes} className="w-[100%] flex flex-col bold items-center space-y-4 mt-[50px] bg-slate-100 
-        rounded-lg space-x-5 px-10 py-5 justify center mx-auto">
-            <div className="text-xl text-blue-700">Delete Restaurant</div>
-            <div className="flex items-center w-1/2 my-2">
-                <label className="w-auto block text-gray-700 pr-4" htmlFor="resName">
+        <form action={delRes} className="my-5 px-20 py-[50px] shadow bg-[#FFEDC0] rounded-md flex flex-col gap-2 justify-center items-center">
+            <div className="font-bold text-4xl">Delete Restaurant</div>
+            <div className="relative">
+                <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="resName">
                     Restaurant Id</label>
+                <div className="flex items-stretch">
                 <input type="text" required id="resId" name="resId" placeholder="Restaurant's Id"
-                className="bg-white border-2 border-gray-200 rounded w-full p-2
-                text-gray-700 focus:outline-none focus:border-blue-400"/>
+                className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
+                </div>
             </div>
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700
-            text-white p-2 rounded">Delete Restaurant</button>
+            <button type="submit" className="bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75">Delete Restaurant</button>
         </form>
     )
 

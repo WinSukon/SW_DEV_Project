@@ -21,7 +21,7 @@ export const bookslice = createSlice({
                 return (
                     (obj.bookingDate!==action.payload.bookingDate) ||
                     (obj.numOfGuests!==action.payload.numOfGuests) ||
-                    (obj.restaurant!==action.payload.restaurant) 
+                    (obj.restaurant._id!==action.payload.restaurant._id) 
                 )
             })
             state.bookItems=remainItem
@@ -37,7 +37,6 @@ export const bookslice = createSlice({
                 }
             })
             state.bookItems=newBooking
-            console.log('casddghfgdfsca')
         }
     }
 })

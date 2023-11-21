@@ -1,28 +1,39 @@
 'use client'
-import {useState , useReducer} from 'react'
-import Form from "@/components/Form";
-
+import {useState,useEffect} from 'react'
+//components
+import Form from "./Form";
+import Image from 'next/image';
+//redux
+import { useAppSelector , AppDispatch} from "@/redux/store";
 import { cancelBooking } from "@/redux/features/bookSlice";
-import { useAppSelector } from "@/redux/store";
 import {useDispatch} from 'react-redux';
-import { AppDispatch } from "@/redux/store";
-import { BookingItem } from "@/interface";
-import Image from "next/image";
+//interface
+import { BookingItem } from '@/interface';
 
 
-const ReservationInfo = ({profile}:{profile:Object}) => {
+
+const Reservations = ({profile}:{profile:Object}) => {
+    //setup Hooks
     const [isEditing,setEdit] = useState<Boolean>(false)
-    const [selectedBooked,setBooked] =useState<BookingItem>()
-    const dispatch = useDispatch<AppDispatch>();
+    const [editingBook,setEditingBook] = useState<BookingItem>()
+    
+    //get current bookItems
     const bookItems = useAppSelector((state)=>state.bookSlice.bookItems)
 
+    const dispatch = useDispatch<AppDispatch>();
     //remove in redux
     const cancel=(bookItem:BookingItem)=>{
         dispatch(cancelBooking(bookItem))
     }
-    return ( 
+
+    //when finish updating change isEditing to false
+    useEffect(()=>{
+        setEdit(false)
+    },[bookItems])
+
+    return (
         <div className="flex flex-col">
-            {isEditing ? <Form user={profile.data} isEditing={true} bookItem={selectedBooked}></Form> : null}
+            {isEditing ? <Form user={profile.data} bookItemtoEdit={editingBook}></Form> : null}
 
             {bookItems.length===0 ?
                 <div>No Vaccine Booking</div>
@@ -30,34 +41,39 @@ const ReservationInfo = ({profile}:{profile:Object}) => {
                 <div className='flex flex-col'>
                     {bookItems.map((bookItem:BookingItem)=>(
                         //!add key in the div below
-                        <div className="flex flex-row bg-slate-200 rounded px-5 mx-5 py-2 my-2">
-                            {/* <div className='w-full h-[80%] relative rounded-t-lg'>
-                                <Image src={imgsrc}
+                            //!come back and style this!!!!!!
+
+                        <div className="flex flex-row w-[80%] h-[30%]">
+                            <div className='w-[30%] h-[80%] relative rounded-t-lg border-solid border-2 border-sky-500 '>
+                                <Image src={bookItem.restaurant.pic}
                                     alt='Restaurant Information'
                                     fill={true}
                                     className='object-cover rounded-t-lg'/>
-                            </div> */}
+                            </div> 
                             <div className="flex flex-col">
-                                <div className="text-lg">{bookItem.restaurant}</div>
+                                <div className="text-lg">{bookItem.restaurant.name}</div>
                                 <div className="text-lg">{bookItem.numOfGuests.toString()}</div>
                                 <div className="text-lg">{bookItem.bookingDate}</div>
                                 <div className="text-lg">{bookItem.user}</div>
+
                                 <div className="left-[46%]  m-0">
                                     <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600" 
-                                    onClick={()=>{setEdit(true); setBooked(bookItem);}}>Edit Booking</button>
+                                    onClick={()=>{setEdit(true); setEditingBook(bookItem);}}>Edit Booking</button>
                                 </div>
+
                                 <div className="left-[46%]  m-0">
                                     <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600" 
                                     onClick={()=>cancel(bookItem)}>cancel Booking</button>
                                 </div>
                             </div>
                         </div>
+                        
                     ))}
                 </div>
             }
         </div>
-            
-     );
+
+    );
 }
  
-export default ReservationInfo;
+export default Reservations;

@@ -18,7 +18,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 
-const Form = ({user,isEditing,bookItem}:{user:Object,isEditing:Boolean,bookItem?:BookingItem}) => {
+const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) => {
     //all values for booking interface
     const [date,setDate]=useState<Dayjs|null>(null);
     const [numOfGuests,setNum] =useState<number>(0);
@@ -29,7 +29,7 @@ const Form = ({user,isEditing,bookItem}:{user:Object,isEditing:Boolean,bookItem?
     const currentBookings = useAppSelector((state)=>state.bookSlice.bookItems)
 
     const createBooking = () =>{
-        if(numOfGuests && date && selectedResId && user.name ){
+        if(numOfGuests>=0 && date && selectedResId && user.name ){
             if(currentBookings.length===3){
                 alert("Can't book more than 3 reservations. Please remove a reservation before booking!")
             }
@@ -43,12 +43,15 @@ const Form = ({user,isEditing,bookItem}:{user:Object,isEditing:Boolean,bookItem?
                     const item:BookingItem={
                         _id:genid(),
                         numOfGuests:numOfGuests,
-                        restaurant:restaurant.name,
                         bookingDate:dayjs(date).format("YYYY/MM/DD"),
-                        user : user.name
+                        user : user.name,
+                        restaurant:{
+                            _id:selectedResId,
+                            name:restaurant.name,
+                            pic:restaurant.picture
+                        }
                     }
                     dispatch(addBooking(item));
-                    console.log('dispatch done')
                     //post new booking to db
                     postBooking(date.toDate(),numOfGuests,user,restaurant)
                 }
@@ -63,8 +66,7 @@ const Form = ({user,isEditing,bookItem}:{user:Object,isEditing:Boolean,bookItem?
     }
 
     const editBooking=()=>{
-        //update data in redux
-        if (bookItem){
+        if (bookItemtoEdit){
             const duplicate = findDupeBooking()
             const restaurant=resJson.data.find((resItem:Object)=>{
                 if(resItem._id==selectedResId) return resItem
@@ -72,14 +74,20 @@ const Form = ({user,isEditing,bookItem}:{user:Object,isEditing:Boolean,bookItem?
     
             if(!duplicate){
                 const item:BookingItem={
-                    _id:bookItem._id,
+                    _id:bookItemtoEdit._id,
                     numOfGuests:numOfGuests,
-                    restaurant:restaurant.name,
                     bookingDate:dayjs(date).format("YYYY/MM/DD"),
-                    user : user.name
+                    user : user.name,
+                    restaurant:{
+                        _id:selectedResId,
+                        name:restaurant.name,
+                        pic:restaurant.picture
+                    }
                 }
+                //update data in redux
                 dispatch(updateBooking(item));
-                console.log('dispatch done')
+                //!update data in db
+
                
             }
             else{
@@ -87,16 +95,15 @@ const Form = ({user,isEditing,bookItem}:{user:Object,isEditing:Boolean,bookItem?
             }
         }
 
-        //update data in db
     }
-    //handle form state
 
+    //handle form 
     const findDupeBooking = ()=>{
         return currentBookings.find(obj=>{
             return !(
                 (obj.bookingDate!==dayjs(date).format("YYYY/MM/DD")) ||
                 (obj.numOfGuests!==numOfGuests) ||
-                (obj.restaurant!==selectedResId) 
+                (obj.restaurant._id!==selectedResId) 
             )})
     }
 
@@ -112,16 +119,22 @@ const Form = ({user,isEditing,bookItem}:{user:Object,isEditing:Boolean,bookItem?
             setRes(res)
         }
         fetchData()
+        //setup val if going to edit
+        if(bookItemtoEdit){
+            setDate(dayjs(bookItemtoEdit.bookingDate))
+            setNum(bookItemtoEdit.numOfGuests)
+            setSelected(bookItemtoEdit.restaurant._id)
+        }
     },[])
 
-    const handleSubmit = (isEditing:Boolean)=>{
-        isEditing ? editBooking() : createBooking()
+    const handleSubmit = (bookItemtoEdit:any)=>{
+        bookItemtoEdit ? editBooking() : createBooking()
     }
 
     if(!resJson) return (<div>loading</div>)
 
     return (  
-        <form className="flex flex-col" action={()=>{handleSubmit(isEditing)}}>
+        <form className="flex flex-col" action={()=>{handleSubmit(bookItemtoEdit)}}>
             <div className="p-3 mt-4">Select Date</div>
             <div className="p-3">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -133,12 +146,12 @@ const Form = ({user,isEditing,bookItem}:{user:Object,isEditing:Boolean,bookItem?
             <div className="p-3 mb-4">
                 <Select variant="standard" label="choose hospital" className="w-[280px]" value={selectedResId} onChange={handleResChange}>
                     {resJson.data.map((resItem:Object)=>(
-                        <MenuItem value={resItem._id}>{resItem.name}</MenuItem>
+                        <MenuItem value={resItem._id} selected={selectedResId===resItem._id}>{resItem.name}</MenuItem>
                     ))}
                 </Select>
             </div>
      
-            <div className="p-3 text-base">Number of people</div>
+            <div className="p-3 text-base">Number of guests</div>
             <div className="p-2">
                 <input className="p-1 rounded ring-1 ring-inset ring-gray-400 text-md leading-6 indent-2 placeholder:text-gray-400"
                 type="number" 
@@ -149,7 +162,7 @@ const Form = ({user,isEditing,bookItem}:{user:Object,isEditing:Boolean,bookItem?
                     setNum(Number(e.target.value)); 
                 }}></input>
             </div>
-           {isEditing ?
+           {bookItemtoEdit ?
            <div className="flex  m-0">
                 <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600"
                             type="submit"

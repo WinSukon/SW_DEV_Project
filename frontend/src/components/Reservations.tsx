@@ -9,13 +9,15 @@ import { cancelBooking } from "@/redux/features/bookSlice";
 import {useDispatch} from 'react-redux';
 //interface
 import { BookingItem } from '@/interface';
-
-
+//libs
+import deleteBooking from '@/libs/deleteBooking';
+import getRestaurants from "@/libs/getRestaurants";
 
 const Reservations = ({profile}:{profile:Object}) => {
     //setup Hooks
     const [isEditing,setEdit] = useState<Boolean>(false)
-    const [editingBook,setEditingBook] = useState<BookingItem>()
+    const [editingBook,setEditingBook] = useState<BookingItem>()//set when click on edit and cancel only
+    const [isCanceling,setCancel] = useState<Boolean>(false)
     
     //get current bookItems
     const bookItems = useAppSelector((state)=>state.bookSlice.bookItems)
@@ -26,15 +28,51 @@ const Reservations = ({profile}:{profile:Object}) => {
         dispatch(cancelBooking(bookItem))
     }
 
+    const cancelBookHandler = ()=>{
+        setCancel(false)
+        if(editingBook) {
+            cancel(editingBook)
+            //!cancel in db
+            const restaurant=resJson.data.find((resItem:Object)=>{
+                if(resItem._id==editingBook.restaurant._id) return resItem
+            })
+            const todelete= {
+                date: new Date(editingBook.bookingDate),
+                numGuest:editingBook.numOfGuests,
+                user:profile.data,
+                res:restaurant
+            }
+            deleteBooking(todelete)
+        }
+        
+    }
     //when finish updating change isEditing to false
     useEffect(()=>{
         setEdit(false)
     },[bookItems])
 
+    const [resJson,setRes] = useState(null);
+
+    useEffect(()=>{
+        const fetchData = async()=>{
+            const res = await getRestaurants()
+            setRes(res)
+        }
+        fetchData()
+    },[])
+
     return (
         <div className="flex flex-col">
             {isEditing ? <Form user={profile.data} bookItemtoEdit={editingBook}></Form> : null}
+            {isCanceling ? 
+                <div className="flex">
+                    Are you sure you want to cancel?
+                    <button onClick={cancelBookHandler}>Yes</button>
+                    <button onClick={()=>setCancel(false)}>No</button>
+                </div>
+                :null
 
+            }
             {bookItems.length===0 ?
                 <div>No Vaccine Booking</div>
                 :
@@ -63,7 +101,7 @@ const Reservations = ({profile}:{profile:Object}) => {
 
                                 <div className="left-[46%]  m-0">
                                     <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600" 
-                                    onClick={()=>cancel(bookItem)}>cancel Booking</button>
+                                    onClick={()=>{setCancel(true); setEditingBook(bookItem)}}>cancel Booking</button>
                                 </div>
                             </div>
                         </div>

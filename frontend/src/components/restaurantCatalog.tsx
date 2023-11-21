@@ -20,7 +20,7 @@ export default function RestaurantCatalog(){
     if(!resJsonReady) return (<div>loading</div>)
     return (
         <>
-        <div className="ml-20 mr-20 mt-5 flex flex-row content-around justify-around flex-wrap">
+        <div className="m-5 flex flex-row content-around justify-around flex-wrap">
                 {resJsonReady.data.map((resItem:Object)=>(
                 <Link href={`/restaurants/${resItem.id}`} 
                 className="w-[100%] sm:w-[50%] lg:w-[25%] p-2 sm:p-4 md:p-4 lg:p-8 m-[20]">

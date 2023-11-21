@@ -31,14 +31,13 @@ export default function AddRestaurantForm(){
             console.log(error)
         }
 
-        revalidateTag("ress")
         redirect("/restaurants")
     }
 
     return (
-        <form action={addRestaurant} className="px-20 py-[50px] shadow bg-[#FFEDC0] rounded-md flex flex-col gap-2 justify-center items-center my-5">
+        <form action={addRestaurant} className="px-20 py-[50px] shadow bg-[#FFEDC0] rounded-md flex flex-col gap-2 justify-center items-center my-5 ">
             <div className="font-bold text-4xl">Add Restaurant</div>
-            <div className="relative">
+            <div className="relative mt-5">
                 <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="resName">
                     Restaurant Name</label>
                 <input type="text" required id="resName" name="resName" placeholder="Restaurant's Name"
@@ -80,7 +79,7 @@ export default function AddRestaurantForm(){
                 className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
             </div>
 
-            <div className="relative">
+            <div className="relative mb-5">
                 <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="picture">
                     Picture</label>
                 <input type="text" required id="picture" name="picture" placeholder="Picture's URL"

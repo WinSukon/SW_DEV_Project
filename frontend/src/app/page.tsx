@@ -3,7 +3,7 @@ import Menus from "@/components/Menus";
 
 export default function Home() {
   return (
-    <main>
+    <main className="bg-[#FFEDC0] h-[100vh]">
       <Banner></Banner>
     </main>
   )

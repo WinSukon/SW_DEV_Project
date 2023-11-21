@@ -17,8 +17,8 @@ export default async function RestaurantList(){
         isAdmin = profile.data.role === "admin";
     }
     return(
-        <main className="text-center p-5 my-10">
-          <div className="px-20 py-[50px] shadow bg-[#FFEDC0] rounded-md">
+        <main className="text-center p-5 bg-[url('/img/bg2.jpg')] bg-no-repeat bg-fixed">
+          <div className="px-20 py-[50px] shadow bg-[#FFEDC0] rounded-md my-3 mx-4">
             <hr className="mt-10 border-black bg"></hr>
             <h1 className="text-4xl font-bold w-[100%] mt-10">Restaurant List</h1>
             <RestaurantCatalog/>

@@ -8,7 +8,7 @@ import { dbConnect } from '@/db/dbConnect';
 import Restaurant from "@/db/models/Restaurant"
 import DeleteRestaurant from '@/components/DeleteRestaurantForm';
 
-export default async function HospitalDetailPage({params}:{params:{rid:string}}){
+export default async function RestaurantDetailPage({params}:{params:{rid:string}}){
     
     const session = await getServerSession(authOptions);
     const resDetail = await getRestaurant(params.rid);
@@ -20,21 +20,21 @@ export default async function HospitalDetailPage({params}:{params:{rid:string}})
     }
 
     return (
-        <main className="text-center my-10">
-            <div className="flex flex-row bg-slate-100 px-10 py-5">
+        <main className="text-center p-5">
+            <div className="flex flex-row shadow bg-[#FFEDC0] rounded-md my-3 mx-4 ">
                 <Image src={resDetail.data.picture} 
                 alt="Hospital Picture"
                 width={0} height={0} sizes="100vw"
                 className='rounded-lg w-[30%] bg-black'/>
-                <div className='flex flex-col'>
-                    <div className='text-xl font-bold mx-5'>{resDetail.data.name}</div>
-                    <div className='text-lg mx-5 text-left'>Description</div>
+                <div className='flex flex-col px-10 py-[25px]'>
+                    <div className='text-4xl font-bold text-left py-[10px]'>{resDetail.data.name}</div>
+                    <div className='text-lg mx-5 text-left underline'>Description</div>
+                    <div className='text-md mx-5 text-left'>Food Type: {resDetail.data.foodtype}</div>
                     <div className='text-md mx-5 text-left'>Address: {resDetail.data.address}</div>
                     <div className='text-md mx-5 text-left'>Province: {resDetail.data.province}</div>
                     <div className='text-md mx-5 text-left'>Postal Code:{resDetail.data.postalcode}</div>
                     <div className='text-md mx-5 text-left'>Tel: {resDetail.data.tel}</div>
                     { isAdmin ? (
-                        
                             <div className='text-md mx-5 text-left'>Restaurant Id: {resDetail.data.id}</div>
                     ):null}
                     

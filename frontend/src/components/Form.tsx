@@ -90,7 +90,7 @@ const Form = ({user,isEditing}:{user:Object,isEditing:Boolean}) => {
     if(!resJson) return (<div>loading</div>)
 
     return (  
-        <form className="flex flex-col" action={handleSubmit}>
+        <form className="flex flex-col" action={()=>{handleSubmit(isEditing)}}>
             <div className="p-3 mt-4">Select Date</div>
             <div className="p-3">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>

@@ -5,15 +5,19 @@ import {revalidateTag} from "next/cache"
 import {redirect} from "next/navigation"
 import Booking from "@/db/models/Booking";
 
-export async function postBooking(date:Date,numGuest:Number,user:Object,res:Object) {
+export async function updateBooking(id:String,date:Date,numGuest:Number,user:Object,res:Object) {
 
     try {
         await dbConnect()
-        const book = await Booking.create({
+        const book = await Booking.findByIdAndUpdate({_id:id},{
             "bookingDate": date ,
             "numOfGuests": numGuest,
             "user": user ,
             "restaurant": res,
+        },
+        {
+            new: true,
+            runValidators: true,
         })
     }
     catch(error){
@@ -21,5 +25,5 @@ export async function postBooking(date:Date,numGuest:Number,user:Object,res:Obje
     }
 
     // revalidateTag("ress")
-    redirect("/mybooking")
+    // redirect("/mybooking")
 }

@@ -39,7 +39,7 @@ export default async function booking() {
 
                         </tbody>
                     </table>
-                </div> */}
+                </div> 
                 <Form user={profile.data} isEditing={false}></Form>     
             </div>
 

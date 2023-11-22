@@ -29,6 +29,7 @@ export default function AddRestaurantForm(){
         }
         catch(error){
             console.log(error)
+            redirect("/manage/restaurant/add/error")
         }
 
         redirect("/restaurants")

@@ -36,7 +36,8 @@ export const authOptions:AuthOptions = {
     },
     pages: {
       signIn: "/signIn",
-      signOut: "/signOut"
+      signOut: "/signOut",
+      error:  "/signIn/error"
     },
     // theme:{
     //   colorScheme: "light", // "auto" | "dark" | "light"

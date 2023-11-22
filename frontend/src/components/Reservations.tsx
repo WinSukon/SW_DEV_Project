@@ -13,8 +13,11 @@ import { BookingItem } from '@/interface';
 import deleteBooking from '@/libs/deleteBooking';
 import getRestaurants from "@/libs/getRestaurants";
 import getBookings from "@/libs/getBookings";
-import genid from '@/libs/genIdforObject';
-
+//mui
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
     //setup Hooks
     const [isEditing,setEdit] = useState<boolean>(false)
@@ -40,6 +43,7 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                 if(resItem._id==editingBook.restaurant._id) return resItem
             })
             const todelete= {
+                id:editingBook._id,
                 date: new Date(editingBook.bookingDate),
                 numGuest:editingBook.numOfGuests,
                 user:profile.data,
@@ -94,8 +98,8 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                 const imgS:String=findImgSrc(res.data,obj.restaurant?._id)
                 console.log('src form func',imgS)
                 const bookItem:BookingItem={
-                    _id:genid(),//generated for use in redux
-                    bookingDate: obj.bookingDate,
+                    _id:obj._id,//generated for use in redux
+                    bookingDate: obj.bookingDate.toString(),
                     numOfGuests: obj.numOfGuests,
                     user: obj.user,
                     restaurant:{
@@ -111,12 +115,12 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
         console.log('out',resImg.size)
 
     },[])
-    if(!bookJson) return (<div>loading</div>)
+    if(!bookJson) return (<div >loading</div>)
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col justify-center item-center ">
             {isEditing ? 
-            <div className='fixed top-[0] left-[0] w-[100%] h-[100vh] bg-black bg-opacity-20 flex justify-center items-center flex-col'>
+            <div className='z-40 fixed top-[0] left-[0] w-[100%] h-[100vh] bg-black bg-opacity-20 flex justify-center items-center flex-col'>
                 <div className='flex flex-col relative p-[32px] bg-white rounded-lg'>
                     <Form user={profile.data} bookItemtoEdit={editingBook}></Form> 
 
@@ -128,14 +132,16 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                 </div>
             </div> : null}
             {isCanceling ? 
-                <div className="fixed top-[0] left-[0] w-[100%] h-[100vh] bg-black bg-opacity-20 flex justify-center items-center flex-col">
+                <div className="z-40 fixed top-[0] left-[0] w-[100%] h-[100vh] bg-black bg-opacity-20 flex justify-center items-center flex-col">
                     <div className='flex relative p-[32px] bg-white rounded-lg'>
-                        <div className="flex">
-                            Are you sure you want to cancel?
-                            <button className='bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75'
-                            onClick={cancelBookHandler}>Yes</button>
-                            <button className='bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75'
-                            onClick={()=>{setCancel(false);setDisable(false)}}>No</button>
+                        <div className="flex flex-col">
+                            <div className='m-5 text-lg'>Are you sure you want to cancel?</div>
+                            <div className="flex flex-row justify-around">
+                                <button className='bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75'
+                                onClick={cancelBookHandler}><CheckIcon></CheckIcon>Yes</button>
+                                <button className='bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75'
+                                onClick={()=>{setCancel(false);setDisable(false)}}><CloseIcon></CloseIcon>No</button>
+                            </div>
                         </div>
                     </div>
 
@@ -145,42 +151,36 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
 
             }
             {bookItems.length===0?
-                <div>No Vaccine Booking</div>
+                <div className='font-bold text-lg flex'>No Vaccine Booking</div>
                 :
                 <div className='flex flex-col'>
                         {bookItems.map((bookItem:BookingItem)=>(
-                            //!add key in the div below
-                                //!come back and style this!!!!!!
-                            <div className="flex flex-row w-[80%] h-[30%]">
-                                <div className="w-[350px] h-[300px] rounded-lg shadow-lg bg-white flex items-center justify-center flex-col">
-                                    <div className=' w-full h-[80%]  relative rounded-t-lg border-solid border-2 border-sky-500 '>
-                                        <Image src={bookItem.restaurant.picture}
+                            <div className="flex flex-row shadow bg-white rounded-md my-3 mx-4">
+                                <Image src={bookItem.restaurant.picture}
                                                 alt='Restaurant Information'
-                                                fill={true}
-                                                className='object-cover rounded-t-lg'/>
-                                    </div> 
+                                                width={0} height={0} sizes="100vw"
+                                                className='rounded-lg w-[30%] bg-black'/>
+
+                                <div className="flex flex-col px-10 py-[25px] mb-3 w-[100vh] relative content-start items-start">
+                                    <div className="text-lg">Booked At : {bookItem.restaurant.name}</div>
+                                    <div className="text-lg">Guests : {bookItem.numOfGuests.toString()}</div>
+                                    <div className="text-lg">Date : {bookItem.bookingDate.slice(0, 10)}</div>
+
+                                    
                                 </div>
-
-                                <div className="flex flex-col">
-                                    <div className="text-lg">{bookItem.restaurant.name}</div>
-                                    <div className="text-lg">{bookItem.numOfGuests.toString()}</div>
-                                    <div className="text-lg">{bookItem.bookingDate}</div>
-                                    <div className="text-lg">{bookItem.restaurant.picturee}</div>
-
-                                    {/* <div className="text-lg">{bookItem.user.name}</div> */}
-
-                                    <div className="left-[46%]  m-0">
+                                <div className="flex flex-col justify-around md:flex-row">
+                                    <div className="mx-2 my-0 ">
                                         <button className="bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75" 
                                                 onClick={()=>{setEdit(true); setEditingBook(bookItem); setDisable(true)}}
                                                 disabled={isDisable}
-                                                >Edit Booking</button>
+                                                ><EditIcon></EditIcon></button>
                                     </div>
 
-                                    <div className="left-[46%]  m-0">
+                                    <div className=" mx-2 my-0">
                                         <button className="bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75" 
                                         onClick={()=>{setCancel(true); setEditingBook(bookItem); setDisable(true)}}
                                         disabled={isDisable}
-                                        >cancel Booking</button>
+                                        ><DeleteForeverIcon></DeleteForeverIcon></button>
                                     </div>
                                 </div>
                             </div>

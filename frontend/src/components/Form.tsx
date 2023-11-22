@@ -54,9 +54,11 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
                             picture:restaurant.picture
                         }
                     }
-                    dispatch(addBooking(item));
                     //post new booking to db
                     postBooking(date.toDate(),numOfGuests,user,restaurant._id)
+
+                    dispatch(addBooking(item));
+
                 }
                 else{
                     alert("Can't book a duplicate reservation. You booked it already!")

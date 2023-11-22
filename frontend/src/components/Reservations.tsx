@@ -127,7 +127,7 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                     <div className="left-[46%]  m-0">
                         <button className="bg-[#FFCE50] absolute top-[8px] right-[16px] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75" 
                                 onClick={()=>{setEdit(false); setDisable(false)}}
-                                >Cancel Edit</button>
+                                ><CloseIcon></CloseIcon></button>
                     </div>
                 </div>
             </div> : null}

@@ -48,10 +48,12 @@ export default async function RestaurantDetailPage({params}:{params:{rid:string}
                 
                     
             </div>
-            <div className='flex flex-row justify-center items-center'>
-                <UpdateRestaurantForm rid={resDetail.data.id}/>
-                
-            </div>
+            { isAdmin ? (
+                    <div className='flex flex-row justify-center items-center'>
+                    <UpdateRestaurantForm rid={resDetail.data.id}/> 
+                    </div>
+                ):null}
+            
             
         </main>
     )

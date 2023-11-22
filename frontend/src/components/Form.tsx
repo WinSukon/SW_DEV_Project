@@ -186,13 +186,13 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
             </div>
            {bookItemtoEdit ?
            <div className="flex  m-0">
-                <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600"
+                <button className="bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75"
                             type="submit"
                 >Confirm Edit</button>
            </div> 
            :
            <div className="flex  m-0">
-                <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600"
+                <button className="bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75"
                          type="submit"
                 >Confirm Booking</button>
             </div>}

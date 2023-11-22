@@ -120,7 +120,7 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                 <div className='flex relative p-[32px] bg-white rounded-lg'>
                     <Form user={profile.data} bookItemtoEdit={editingBook}></Form> 
                     <div className="left-[46%]  m-0">
-                        <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600" 
+                        <button className="bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75" 
                                 onClick={()=>{setEdit(false); setDisable(false)}}
                                 >Cancel Edit</button>
                     </div>
@@ -131,8 +131,10 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                     <div className='flex relative p-[32px] bg-white rounded-lg'>
                         <div className="flex">
                             Are you sure you want to cancel?
-                            <button onClick={cancelBookHandler}>Yes</button>
-                            <button onClick={()=>{setCancel(false);setDisable(false)}}>No</button>
+                            <button className='bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75'
+                            onClick={cancelBookHandler}>Yes</button>
+                            <button className='bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75'
+                            onClick={()=>{setCancel(false);setDisable(false)}}>No</button>
                         </div>
                     </div>
 
@@ -167,14 +169,14 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                                     {/* <div className="text-lg">{bookItem.user.name}</div> */}
 
                                     <div className="left-[46%]  m-0">
-                                        <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600" 
+                                        <button className="bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75" 
                                                 onClick={()=>{setEdit(true); setEditingBook(bookItem); setDisable(true)}}
                                                 disabled={isDisable}
                                                 >Edit Booking</button>
                                     </div>
 
                                     <div className="left-[46%]  m-0">
-                                        <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600" 
+                                        <button className="bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75" 
                                         onClick={()=>{setCancel(true); setEditingBook(bookItem); setDisable(true)}}
                                         disabled={isDisable}
                                         >cancel Booking</button>

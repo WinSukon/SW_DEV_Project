@@ -20,6 +20,8 @@ export default async function booking() {
     } 
     const profile = await getUserProfile(session.user.token)
     var createAt = new Date(profile.data.createdAt);
+    
+    if(profile) console.log(profile.data)
 
     return ( 
         <main className=' px-20 py-[50px] shadow bg-[#FFEDC0] rounded-md my-3 mx-4'>

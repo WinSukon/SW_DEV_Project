@@ -31,6 +31,7 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
 
     const cancelBookHandler = ()=>{
         setCancel(false)
+        setDisable(false)
         if(editingBook) {
             cancel(editingBook)
             //!cancel in db
@@ -47,22 +48,42 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
         }
         
     }
+    const findImgSrc=(resData:Array<Object>,resId:string):String=>{
+        let src:String=''
+        resData.map((res:Object)=>{
+            if(res._id===resId){
+                src=res.picture
+            }
+        })
+        console.log('img',src)
+        return src
+    }
     //when finish updating change isEditing to false
     useEffect(()=>{
         setEdit(false)
+        setDisable(false)
     },[bookItems])
 
     const [resJson,setRes] = useState(null);
     const [bookJson,setBook] = useState(null);
-
+    const [resImg,setRS] = useState<Map<String,String>>(new Map<String,String>())
 
     useEffect(()=>{
         const fetchData = async()=>{
             const res = await getRestaurants()
             const bookings= await getBookings(session.user.token)
-            console.log(bookings)
+            console.log('b',bookings)
+            console.log('r',res)
+            console.log('br',bookings.data[0].restaurant)
+
             setRes(res)
             setBook(bookings)
+
+            const m = new Map<String,String>()
+            res.data.map((obj:Object)=>{
+                m.set(obj._id,obj.picture)
+            })
+            setRS(m)
         }
         fetchData()
     },[])
@@ -75,11 +96,13 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                 <div className="flex">
                     Are you sure you want to cancel?
                     <button onClick={cancelBookHandler}>Yes</button>
-                    <button onClick={()=>setCancel(false)}>No</button>
+                    <button onClick={()=>{setCancel(false);setDisable(false)}}>No</button>
                 </div>
                 :null
 
             }
+
+
             {bookItems.length===0 ?
                 <div>No Vaccine Booking</div>
                 :
@@ -89,12 +112,26 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                             //!come back and style this!!!!!!
 
                         <div className="flex flex-row w-[80%] h-[30%]">
+                            {/* {resImg.get(bookItem.restaurant._id) ? 
                             <div className='w-[30%] h-[80%] relative rounded-t-lg border-solid border-2 border-sky-500 '>
-                                <Image src={bookItem.restaurant.pic}
+                                <Image src={resImg.get(bookItem.restaurant._id)}
                                     alt='Restaurant Information'
                                     fill={true}
                                     className='object-cover rounded-t-lg'/>
                             </div> 
+                            :
+                            null
+                            } */}
+                            <div className="w-[350px] h-[300px] rounded-lg shadow-lg bg-white flex items-center justify-center flex-col">
+                                <div className=' w-full h-[80%] h-[80%] relative rounded-t-lg border-solid border-2 border-sky-500 '>
+                                    <Image src={resImg.get(bookItem.restaurant._id)}
+                                            alt='Restaurant Information'
+                                            fill={true}
+                                            className='object-cover rounded-t-lg'/>
+                                </div> 
+                            </div>
+                           
+                           
                             <div className="flex flex-col">
                                 <div className="text-lg">{bookItem.restaurant.name}</div>
                                 <div className="text-lg">{bookItem.numOfGuests.toString()}</div>
@@ -120,7 +157,8 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                     ))}
                 </div>
             }
-            <div className="flex">from database</div>
+
+            {/* <div className="flex">from database</div>
             {bookJson.data.length===0 ?
                 <div>No Vaccine Booking</div>
                 :
@@ -131,18 +169,18 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
 
                         <div className="flex flex-row w-[80%] h-[30%]">
                             <div className='w-[30%] h-[80%] relative rounded-t-lg border-solid border-2 border-sky-500 '>
-                                <Image src={bookItem.picture}
+                                <Image src={bookItem.restaurant.picture}
                                     alt='Restaurant Information'
                                     fill={true}
                                     className='object-cover rounded-t-lg'/>
                             </div> 
                             <div className="flex flex-col">
-                                {/* <div className="text-lg">{bookItem.restaurant.name}</div> */}
+                                <div className="text-lg">{bookItem.restaurant.name}</div>
                                 <div className="text-lg">{bookItem.numOfGuests.toString()}</div>
                                 <div className="text-lg">{bookItem.bookingDate}</div>
                                 <div className="text-lg">{bookItem.user.name}</div>
 
-                                {/* <div className="left-[46%]  m-0">
+                                <div className="left-[46%]  m-0">
                                     <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600" 
                                             onClick={()=>{setEdit(true); setEditingBook(bookItem); setDisable(true)}}
                                             disabled={isDisable}
@@ -154,13 +192,13 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                                     onClick={()=>{setCancel(true); setEditingBook(bookItem); setDisable(true)}}
                                     disabled={isDisable}
                                     >cancel Booking</button>
-                                </div> */}
+                                </div>
                             </div>
                         </div>
                         
                     ))}
                 </div>
-            }
+            } */}
         </div>
 
     );

@@ -5,7 +5,7 @@ import {revalidateTag} from "next/cache"
 import {redirect} from "next/navigation"
 import Booking from "@/db/models/Booking";
 
-export async function postBooking(date:Date,numGuest:Number,user:Object,res:Object) {
+export async function postBooking(date:Date,numGuest:Number,user:Object,res:string) {
 
     try {
         await dbConnect()

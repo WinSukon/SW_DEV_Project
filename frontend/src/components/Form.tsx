@@ -40,6 +40,8 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
                         if(resItem._id==selectedResId) return resItem
                     }
                 )
+                console.log('res',restaurant)
+
                 if(!duplicate){
                     const item:BookingItem={
                         _id:genid(),
@@ -54,7 +56,7 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
                     }
                     dispatch(addBooking(item));
                     //post new booking to db
-                    postBooking(date.toDate(),numOfGuests,user,restaurant)
+                    postBooking(date.toDate(),numOfGuests,user,restaurant._id)
                 }
                 else{
                     alert("Can't book a duplicate reservation. You booked it already!")
@@ -73,6 +75,7 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
                 const restaurant=resJson.data.find((resItem:Object)=>{
                     if(resItem._id==selectedResId) return resItem
                 })
+
         
                 if(!duplicate){
                     const item:BookingItem={

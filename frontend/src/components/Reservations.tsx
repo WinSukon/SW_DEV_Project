@@ -117,10 +117,11 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
         <div className="flex flex-col">
             {isEditing ? 
             <div className='fixed top-[0] left-[0] w-[100%] h-[100vh] bg-black bg-opacity-20 flex justify-center items-center flex-col'>
-                <div className='flex relative p-[32px] bg-white rounded-lg'>
+                <div className='flex flex-col relative p-[32px] bg-white rounded-lg'>
                     <Form user={profile.data} bookItemtoEdit={editingBook}></Form> 
+
                     <div className="left-[46%]  m-0">
-                        <button className="bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75" 
+                        <button className="bg-[#FFCE50] absolute top-[8px] right-[16px] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75" 
                                 onClick={()=>{setEdit(false); setDisable(false)}}
                                 >Cancel Edit</button>
                     </div>

@@ -157,14 +157,14 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
 
     return (  
         <form className="flex flex-col" action={()=>{handleSubmit(bookItemtoEdit)}}>
-            <div className="p-3 mt-4">Select Date</div>
+            <div className="p-3 mt-4 text-gray-600  mb-2 text-sm lg:text-base xl:text-lg">Select Date</div>
             <div className="p-3">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker value={date} onChange={(newDate)=>{setDate(newDate)}}></DatePicker>
                 </LocalizationProvider>
             </div>
 
-            <div className="text-base p-3">Select Restaurant</div>
+            <div className=" p-3 text-gray-600  mb-2  text-sm lg:text-base xl:text-lg">Select Restaurant</div>
             <div className="p-3 mb-4">
                 <Select variant="standard" label="choose hospital" className="w-[280px]" value={selectedResId} onChange={handleResChange}>
                     {resJson.data.map((resItem:Object)=>(
@@ -173,7 +173,7 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
                 </Select>
             </div>
      
-            <div className="p-3 text-base">Number of guests</div>
+            <div className="p-3  text-gray-600  mb-2  text-sm lg:text-base xl:text-lg">Number of guests</div>
             <div className="p-2">
                 <input className="p-1 rounded ring-1 ring-inset ring-gray-400 text-md leading-6 indent-2 placeholder:text-gray-400"
                 type="number" 
@@ -185,17 +185,17 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
                 }}></input>
             </div>
            {bookItemtoEdit ?
-           <div className="flex  m-0">
+          
                 <button className="bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75"
                             type="submit"
                 >Confirm Edit</button>
-           </div> 
+          
            :
-           <div className="flex  m-0">
+           
                 <button className="bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75"
                          type="submit"
                 >Confirm Booking</button>
-            </div>}
+            }
             
         </form>
     );

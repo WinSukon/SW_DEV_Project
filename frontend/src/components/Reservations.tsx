@@ -151,7 +151,7 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
 
             }
             {bookItems.length===0?
-                <div className='font-bold text-lg flex'>No Vaccine Booking</div>
+                <div className='font-bold text-lg flex flex-col justify-center items-center m-4 '>No Vaccine Booking</div>
                 :
                 <div className='flex flex-col'>
                         {bookItems.map((bookItem:BookingItem)=>(

@@ -28,9 +28,10 @@ export default async function RestaurantList(){
               <h1 className="text-4xl font-bold w-[100%] mt-10 ">Manage Restaurant</h1>
               <div className="flex flex-row justify-center items-center mt-5">
                 <hr className="mt-10 border-black"></hr>
-                <Link href="/manage/restaurant/add" className="mx-5 bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75">Add Restaurant</Link>
-                <Link href="/manage/restaurant/update" className="mx-5 bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75">Update Restaurant</Link>
-                <Link href="/manage/restaurant/delete" className="mx-5 bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75">Delete Restaurant</Link>
+                <Link href="/manage/restaurant/add" className="mx-5 bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 
+                rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75">Add Restaurant</Link>
+                {/* <Link href="/manage/restaurant/update" className="mx-5 bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75">Update Restaurant</Link>
+                <Link href="/manage/restaurant/delete" className="mx-5 bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75">Delete Restaurant</Link> */}
               </div>
               <hr className="my-10 border-black bg"></hr>
               </div>

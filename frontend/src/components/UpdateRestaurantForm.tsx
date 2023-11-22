@@ -6,10 +6,10 @@ import getRestaurants from "@/libs/getRestaurants"
 import { MenuItem, Select } from "@mui/material"
 import getRestaurant from "@/libs/getRestaurant"
 
-export default function UpdateRestaurantForm(){
+export default function UpdateRestaurantForm({rid}:{rid:string}){
     const updateRestaurant = async (addResForm:FormData) => {
         "use server"
-        const id = addResForm.get("resId")
+        const id = rid;
         const name = addResForm.get("resName")
         const foodType = addResForm.get("ftype")
         const address = addResForm.get("addr")
@@ -41,29 +41,29 @@ export default function UpdateRestaurantForm(){
             redirect("/manage/restaurant/update/error")
         }
 
-        redirect("/restaurants")
+        redirect(`/restaurants/${id}`)
     }
 
     // const resList = await getRestaurants();
     
     return (
-        <form action={updateRestaurant} className="px-20 py-[30px] shadow bg-[#FFEDC0] rounded-md flex flex-col gap-2 justify-center items-center my-5">
+        <form action={updateRestaurant} className="px-20 py-[30px] shadow bg-[#FFEDC0] rounded-md flex flex-col gap-2 justify-center items-center my-5 mx-3">
             <div className="font-bold text-4xl">Update Restaurant</div>
-            <div className="relative mt-5">
+            {/* <div className="relative mt-5">
                 <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="resId">
                     Restaurant Id</label>
                 <div className="flex items-stretch">
                 <input type="text" required id="resId" name="resId" placeholder="Restaurant's Id"
                 className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
                 </div>
-                {/* <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="resId">
+                <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="resId">
                     Restaurant Name</label>
                 <Select variant="standard" label="choose hospital" className="w-[230px]" required id="resId" name="resId" placeholder="Restaurant's Id">
                     {resList.data.map((resItem:Object)=>(
                         <MenuItem value={resItem._id}>{resItem.name}</MenuItem>
                     ))}
-                </Select> */}
-            </div>
+                </Select>
+            </div> */}
 
             <div className="relative">
                 <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="resName">

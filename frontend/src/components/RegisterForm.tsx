@@ -26,6 +26,8 @@ export default function RegisterUser(){
         }
         catch(error){
             console.log(error)
+            console.log("This email is already use")
+            redirect("/register/error")
         }
         redirect("/register/success")
     }
@@ -45,21 +47,21 @@ export default function RegisterUser(){
             <div className="relative">
                 <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="email">
                     Email</label>
-                <input type="text" required id="email" name="email" placeholder="Email"
+                <input type="email" required id="email" name="email" placeholder="Email"
                 className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
             </div>
 
             <div className="relative">
                 <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="tel">
                     Telephone No.</label>
-                <input type="text" required id="tel" name="tel" placeholder="Telephone No."
+                <input type="tel" minLength={10} maxLength={10} pattern="[0-9]{10}" required id="tel" name="tel" placeholder="Telephone No."
                 className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
             </div>
 
             <div className="relative">
                 <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="password">
                     Password</label>
-                <input type="text" required id="password" name="password" placeholder="Password"
+                <input type="text" required minLength={6} id="password" name="password" placeholder="Password"
                 className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
             </div>
 

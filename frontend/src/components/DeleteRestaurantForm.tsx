@@ -16,6 +16,7 @@ export default async function DeleteRestaurant(){
         }
         catch(error){
             console.log(error)
+            redirect("/manage/restaurant/delete/error")
         }
         redirect("/restaurants")
     }

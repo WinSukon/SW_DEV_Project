@@ -4,6 +4,7 @@ import {revalidateTag} from "next/cache"
 import {redirect} from "next/navigation"
 import getRestaurants from "@/libs/getRestaurants"
 import { MenuItem, Select } from "@mui/material"
+import getRestaurant from "@/libs/getRestaurant"
 
 export default async function UpdateRestaurantForm(){
     const updateRestaurant = async (addResForm:FormData) => {
@@ -19,15 +20,17 @@ export default async function UpdateRestaurantForm(){
 
         try {
             await dbConnect()
-            const res = await Restaurant.findByIdAndUpdate({_id:id},
+            const resInfo = await getRestaurant(id)
+            const name2 = resInfo.data.name;
+            const resUpdate = await Restaurant.findByIdAndUpdate({_id:id},
             {
-                "name" :name,
-                "foodtype":foodType,
-                "address" : address,
-                "province" : province,
-                "postalcode" : postalcode,
-                "tel": tel,
-                "picture": picture
+                "name" :name? name:resInfo.data.name,
+                "foodtype":foodType? foodType:resInfo.data.foodType,
+                "address" : address? address:resInfo.data.address,
+                "province" : province? province:resInfo.data.province,
+                "postalcode" : postalcode? postalcode:resInfo.data.postalcode,
+                "tel": tel? tel:resInfo.data.tel,
+                "picture": picture? picture:resInfo.data.picture
             },
             {
                 new: true,
@@ -36,9 +39,9 @@ export default async function UpdateRestaurantForm(){
         }
         catch(error){
             console.log(error)
+            redirect("/manage/restaurant/update/error")
         }
 
-        revalidateTag("ress")
         redirect("/restaurants")
     }
 
@@ -67,7 +70,7 @@ export default async function UpdateRestaurantForm(){
                 <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="resName">
                     Restaurant Name</label>
                 <div className="flex items-stretch">
-                <input type="text" required id="resName" name="resName" placeholder="Restaurant's Name"
+                <input type="text" id="resName" name="resName" placeholder="Restaurant's Name"
                 className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
                 </div>
             </div>

@@ -4,8 +4,10 @@ import {revalidateTag} from "next/cache"
 import {redirect} from "next/navigation"
 import getRestaurants from "@/libs/getRestaurants"
 import { MenuItem, Select } from "@mui/material"
+import { useEffect } from "react"
 
-export default async function DeleteRestaurant(){
+export default function DeleteRestaurant(){
+    
     const delRes = async (delForm:FormData) => {
         "use server"
         const id = delForm.get("resId")
@@ -21,9 +23,10 @@ export default async function DeleteRestaurant(){
         redirect("/restaurants")
     }
 
-    const resList = await getRestaurants();
+    // const resList = await getRestaurants();
 
     return(
+        <div>
         <form action={delRes} className="my-5 px-20 py-[50px] shadow bg-[#FFEDC0] rounded-md flex flex-col gap-2 justify-center items-center">
             <div className="font-bold text-4xl">Delete Restaurant</div>
             <div className="relative my-5">
@@ -31,16 +34,20 @@ export default async function DeleteRestaurant(){
                     Restaurant Id</label>
                 <div className="flex items-stretch">
                 <input type="text" required id="resId" name="resId" placeholder="Restaurant's Id"
-                className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
-                </div>
-                {/* <Select variant="standard" label="choose hospital" className="w-[280px]" required id="resId" name="resId" placeholder="Restaurant's Id">
-                    {resList.data.map((resItem:Object)=>(
+                className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all
+                 text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
+                    {/* <Select variant="standard" label="Choose Restaurant" className="w-[280px]" required id="resId" name="resId" placeholder="Restaurant's Id">
+                        {resList.data.map((resItem:Object)=>(
                         <MenuItem value={resItem._id}>{resItem.name}</MenuItem>
-                    ))}
-                </Select> */}
+                        // <option value={resItem._id} className="px-5 py-3 hover:bg-slate-100 relative">{resItem.name}</option>
+                        ))}
+                    </Select> */}
+                </div>
+                
             </div>
             <button type="submit" className="bg-[#FFCE50] hover:bg-[#FFCE50] my-4 font-bold text-black py-2 px-4 rounded-md shadow shadow-violet-600/25 hover:shadow-violet-600/75">Delete Restaurant</button>
         </form>
+        </div>
     )
 
 }

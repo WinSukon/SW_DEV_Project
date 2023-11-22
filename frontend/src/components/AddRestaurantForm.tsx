@@ -68,14 +68,14 @@ export default function AddRestaurantForm(){
             <div className="relative">
                 <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="posCode">
                     Postal Code</label>
-                <input type="text" required id="posCode" name="posCode" placeholder="Postal Code"
+                <input type="text" minLength={5} maxLength={5} pattern="[0-9]{5}" required id="posCode" name="posCode" placeholder="Postal Code"
                 className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
             </div>
 
             <div className="relative">
                 <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="tel">
                     Telephone Number</label>
-                <input type="text" required id="tel" name="tel" placeholder="Telephone Number"
+                <input type="tel" minLength={10} maxLength={10} pattern="[0-9]{10}" required id="tel" name="tel" placeholder="Telephone Number"
                 className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
             </div>
 

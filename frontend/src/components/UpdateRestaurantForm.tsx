@@ -6,7 +6,7 @@ import getRestaurants from "@/libs/getRestaurants"
 import { MenuItem, Select } from "@mui/material"
 import getRestaurant from "@/libs/getRestaurant"
 
-export default async function UpdateRestaurantForm(){
+export default function UpdateRestaurantForm(){
     const updateRestaurant = async (addResForm:FormData) => {
         "use server"
         const id = addResForm.get("resId")
@@ -21,7 +21,6 @@ export default async function UpdateRestaurantForm(){
         try {
             await dbConnect()
             const resInfo = await getRestaurant(id)
-            const name2 = resInfo.data.name;
             const resUpdate = await Restaurant.findByIdAndUpdate({_id:id},
             {
                 "name" :name? name:resInfo.data.name,
@@ -45,7 +44,7 @@ export default async function UpdateRestaurantForm(){
         redirect("/restaurants")
     }
 
-    const resList = await getRestaurants();
+    // const resList = await getRestaurants();
     
     return (
         <form action={updateRestaurant} className="px-20 py-[30px] shadow bg-[#FFEDC0] rounded-md flex flex-col gap-2 justify-center items-center my-5">
@@ -106,7 +105,7 @@ export default async function UpdateRestaurantForm(){
                 <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="posCode">
                     Postal Code</label>
                 <div className="flex items-stretch">
-                <input type="text" id="posCode" name="posCode" placeholder="Postal Code"
+                <input type="text" minLength={5} maxLength={5} pattern="[0-9]{5}" id="posCode" name="posCode" placeholder="Postal Code"
                 className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
                 </div>
             </div>
@@ -115,7 +114,7 @@ export default async function UpdateRestaurantForm(){
                 <label className="block text-gray-600  mb-2 text-xs lg:text-sm xl:text-base" htmlFor="tel">
                     Telephone Number</label>
                 <div className="flex items-stretch">
-                <input type="text" id="tel" name="tel" placeholder="Telephone Number"
+                <input type="tel" minLength={10} maxLength={10} pattern="[0-9]{10}" id="tel" name="tel" placeholder="Telephone Number"
                 className="rounded-md border border-slate-400 disabled:border-slate-100 w-full block outline-none py-2 px-1 transition-all text-xs lg:text-sm xl:text-base  bg-slate-50 focus:shadow focus:shadow-blue-500"/>
                 </div>
             </div>

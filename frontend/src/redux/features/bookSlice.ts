@@ -13,6 +13,10 @@ export const bookslice = createSlice({
     name : 'book',
     initialState,
     reducers:{
+        resetBooking: (state)=>{
+            const newBooking:BookingItem[] = []
+            state.bookItems=newBooking
+        },
         addBooking: (state,action:PayloadAction<BookingItem>)=>{
             state.bookItems.push(action.payload)
         },
@@ -41,6 +45,6 @@ export const bookslice = createSlice({
     }
 })
 
-export const {addBooking,cancelBooking,updateBooking} = bookslice.actions
+export const {addBooking,cancelBooking,updateBooking,resetBooking} = bookslice.actions
 
 export default bookslice.reducer

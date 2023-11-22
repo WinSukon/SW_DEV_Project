@@ -16,6 +16,7 @@ const LoginPage = () => {
       callbackUrl: "/",
     });
   };
+  
   return (
     <div className={"flex flex-col justify-center items-center bg-[url('/img/bg2.jpg')] h-screen"}>
       <div className="px-20 py-[50px] shadow bg-[#FFEDC0] rounded-md flex flex-col gap-2 justify-center items-center">

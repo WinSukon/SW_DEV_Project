@@ -70,7 +70,12 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
 
     return (
         <div className="flex flex-col">
-            {isEditing ? <Form user={profile.data} bookItemtoEdit={editingBook}></Form> : null}
+            {isEditing ? 
+            <div className='fixed top-[0] left-[0] w-[100%] h-[100vh] bg-black bg-opacity-20 flex justify-center items-center flex-col'>
+                <div className='flex relative p-[32px] bg-white rounded-lg'>
+                    <Form user={profile.data} bookItemtoEdit={editingBook}></Form> 
+                </div>
+            </div> : null}
             {isCanceling ? 
                 <div className="flex">
                     Are you sure you want to cancel?
@@ -80,7 +85,7 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                 :null
 
             }
-            {bookItems.length===0 ?
+            {/* {bookItems.length===0 ?
                 <div>No Vaccine Booking</div>
                 :
                 <div className='flex flex-col'>
@@ -119,7 +124,7 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                         
                     ))}
                 </div>
-            }
+            } */}
             <div className="flex">from database</div>
             {bookJson.data.length===0 ?
                 <div>No Vaccine Booking</div>
@@ -142,7 +147,7 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                                 <div className="text-lg">{bookItem.bookingDate}</div>
                                 <div className="text-lg">{bookItem.user.name}</div>
 
-                                {/* <div className="left-[46%]  m-0">
+                                <div className="left-[46%]  m-0">
                                     <button className="rounded-md bg-sky-600 text-white px-3 py-2  shadow-sm hover:bg-indigo-600" 
                                             onClick={()=>{setEdit(true); setEditingBook(bookItem); setDisable(true)}}
                                             disabled={isDisable}
@@ -154,7 +159,7 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                                     onClick={()=>{setCancel(true); setEditingBook(bookItem); setDisable(true)}}
                                     disabled={isDisable}
                                     >cancel Booking</button>
-                                </div> */}
+                                </div>
                             </div>
                         </div>
                         

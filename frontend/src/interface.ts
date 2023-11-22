@@ -6,7 +6,7 @@ export interface BookingItem{
     restaurant:{
         _id:string,
         name:string,
-        pic:string
+        picture:string
     }
 }
 

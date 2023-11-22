@@ -49,7 +49,7 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
                         restaurant:{
                             _id:selectedResId,
                             name:restaurant.name,
-                            pic:restaurant.picture
+                            picture:restaurant.picture
                         }
                     }
                     dispatch(addBooking(item));

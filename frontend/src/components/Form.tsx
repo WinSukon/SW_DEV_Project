@@ -84,7 +84,7 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
                         _id:bookItemtoEdit._id,
                         numOfGuests:numOfGuests,
                         bookingDate:dayjs(date).format("YYYY/MM/DD"),
-                        user : user.name,
+                        user : bookItemtoEdit.user,
                         restaurant:{
                             _id:selectedResId,
                             name:restaurant.name,

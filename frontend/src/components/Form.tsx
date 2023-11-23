@@ -38,35 +38,42 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
                 alert("Can't book more than 3 reservations. Please remove a reservation before booking!")
             }
             else{
-                const duplicate = findDupeBooking()
-                const restaurant=resJson.data.find((resItem:Object)=>{
-                        if(resItem._id==selectedResId) return resItem
-                    }
-                )
-                console.log('res',restaurant)
-
-                if(!duplicate){
-                    const item:BookingItem={
-                        _id:genid(),
-                        numOfGuests:numOfGuests,
-                        bookingDate:dayjs(date).format("YYYY/MM/DD"),
-                        user : user.name,
-                        restaurant:{
-                            _id:selectedResId,
-                            name:restaurant.name,
-                            picture:restaurant.picture
-                        }
-                    }
-                    //post new booking to db
-                    postBooking(date.toDate(),numOfGuests,user,restaurant._id)
-
-                    dispatch(addBooking(item));
-                    setMybookAmount(myBookingsAmount+1)
+                if(date.toDate().getTime()<=Date.now()){
+                    alert("Date is invalid (can't book in the past)")
 
                 }
                 else{
-                    alert("Can't book a duplicate reservation. You booked it already!")
+                    const duplicate = findDupeBooking()
+                    const restaurant=resJson.data.find((resItem:Object)=>{
+                            if(resItem._id==selectedResId) return resItem
+                        }
+                    )
+                    console.log('res',restaurant)
+
+                    if(!duplicate){
+                        const item:BookingItem={
+                            _id:genid(),
+                            numOfGuests:numOfGuests,
+                            bookingDate:dayjs(date).format("YYYY/MM/DD"),
+                            user : user.name,
+                            restaurant:{
+                                _id:selectedResId,
+                                name:restaurant.name,
+                                picture:restaurant.picture
+                            }
+                        }
+                        //post new booking to db
+                        postBooking(date.toDate(),numOfGuests,user,restaurant._id)
+
+                        dispatch(addBooking(item));
+                        setMybookAmount(myBookingsAmount+1)
+
+                    }
+                    else{
+                        alert("Can't book a duplicate reservation. You booked it already!")
+                    }
                 }
+                
             }
         }
         else{

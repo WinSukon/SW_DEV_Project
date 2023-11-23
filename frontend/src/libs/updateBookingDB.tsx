@@ -5,27 +5,27 @@ import {revalidateTag} from "next/cache"
 import {redirect} from "next/navigation"
 import Booking from "@/db/models/Booking";
 
-export async function updateBookingDB(before:{date:Date,numGuest:Number,user:Object,res:Object},after:{date:Date,numGuest:Number,user:Object,res:Object}) {
+export async function updateBookingDB(id:string,after:{date:Date,numGuest:Number,res:Object}) {
 
     try {
         await dbConnect()
-        const book = await Booking.findOneAndUpdate(
+        const book = await Booking.findByIdAndUpdate(
         {
-            "bookingDate": before.date ,
-            "numOfGuests": before.numGuest,
-            "user": before.user ,
-            "restaurant": before.res
+            _id:id
         },
         {
-            "bookingDate": after.date ,
-            "numOfGuests": after.numGuest,
-            "user": after.user ,
-            "restaurant": after.res,
-        },
+            $set: {
+                "bookingDate": after.date ,
+                "numOfGuests": after.numGuest,
+                "restaurant": after.res,
+            }
+        }
+       ,
         {
             new: true,
             runValidators: true,
         })
+        console.log('up')
     }
     catch(error){
         console.log(error)

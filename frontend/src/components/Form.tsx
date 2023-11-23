@@ -108,19 +108,15 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
                     const restoFind=resJson.data.find((resItem:Object)=>{
                         if(resItem._id==bookItemtoEdit.restaurant._id) return resItem
                     })
-                    const before={
-                        date:new Date(bookItemtoEdit.bookingDate),
-                        numGuest:bookItemtoEdit.numOfGuests,
-                        user:user,
-                        res:restoFind
-                    }
+        
+                    const id=bookItemtoEdit._id
                     const after={
+                        
                         date:date.toDate(),
                         numGuest:numOfGuests,
-                        user:user,
                         res:restaurant}
 
-                    updateBookingDB(before,after)
+                    updateBookingDB(id,after)
                 }
                 else{
                     alert("Can't book a duplicate reservation. You booked it already!")

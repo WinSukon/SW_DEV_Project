@@ -84,14 +84,6 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
             const bookings =  await getAllBookings();
             console.log('pro',profile)
             console.log('sess',session.user)
-            // if(profile.data.role==='user'){
-            //     bookings= await getUserBookings(session.user.token)
-
-            // }
-            // else if(profile.data.role==='admin'){
-            //     bookings= await getAllBookings()
-
-            // }
 
             setRes(res)
             setBook(bookings)
@@ -102,15 +94,12 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                 m.set(obj._id,obj.picture)
             })
             setRS(m)
-            console.log(resImg.size)
             
             //revalidate bookSlice state
             dispatch(resetBooking())
             bookings.data.map((obj:Object)=>{
 
-                console.log(resImg.get(obj.restaurant?._id))
                 const imgS:String=findImgSrc(res.data,obj.restaurant?._id)
-                console.log('src form func',imgS)
 
                 const bookItem:BookingItem={
                     _id:obj._id,//generated for use in redux
@@ -134,7 +123,6 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
             })
         }
         fetchData()
-        console.log('out',resImg.size)
 
     },[])
     if(!bookJson) return (<div >loading</div>)

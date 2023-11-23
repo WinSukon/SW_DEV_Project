@@ -10,6 +10,7 @@ import { postBooking } from '@/libs/postBooking';
 import getRestaurants from "@/libs/getRestaurants";
 import genid from '@/libs/genIdforObject';
 import { updateBookingDB } from '@/libs/updateBookingDB';
+import getAllBookings from '@/libs/getAllBookings';
 
 //mui
 import dayjs, {Dayjs} from 'dayjs';
@@ -24,14 +25,16 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
     const [date,setDate]=useState<Dayjs|null>(null);
     const [numOfGuests,setNum] =useState<number>(0);
     const [selectedResId,setSelected] = useState<string>('')
+    
+    const [myBookingsAmount,setMybookAmount] =useState<number>(0)
 
     //create booking in redux and db
     const dispatch = useDispatch<AppDispatch>();
     const currentBookings = useAppSelector((state)=>state.bookSlice.bookItems)
-
+    console.log(currentBookings)
     const createBooking = () =>{
         if(numOfGuests>=0 && date && selectedResId && user.name ){
-            if(currentBookings.length===3){
+            if(myBookingsAmount>=3){
                 alert("Can't book more than 3 reservations. Please remove a reservation before booking!")
             }
             else{
@@ -58,6 +61,7 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
                     postBooking(date.toDate(),numOfGuests,user,restaurant._id)
 
                     dispatch(addBooking(item));
+                    setMybookAmount(myBookingsAmount+1)
 
                 }
                 else{
@@ -141,6 +145,15 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
         const fetchData = async()=>{
             const res = await getRestaurants()
             setRes(res)
+
+            const bookings =  await getAllBookings();
+            let count:number=0;
+            bookings.data.map((obj:Object)=>{
+                if(obj.user._id===user._id){
+                    count+=1
+                }
+            })
+            setMybookAmount(count)
         }
         fetchData()
         //setup val if going to edit
@@ -149,6 +162,7 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
             setNum(bookItemtoEdit.numOfGuests)
             setSelected(bookItemtoEdit.restaurant._id)
         }
+
     },[])
 
     const handleSubmit = (bookItemtoEdit:any)=>{

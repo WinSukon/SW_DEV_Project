@@ -12,7 +12,8 @@ import { BookingItem } from '@/interface';
 //libs
 import deleteBooking from '@/libs/deleteBooking';
 import getRestaurants from "@/libs/getRestaurants";
-import getBookings from "@/libs/getBookings";
+import getUserBookings from "@/libs/getBookings";
+import getAllBookings from '@/libs/getAllBookings';
 //mui
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -79,7 +80,16 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
     useEffect(()=>{
         const fetchData = async()=>{
             const res = await getRestaurants()
-            const bookings= await getBookings(session.user.token)
+            let bookings;
+            if(profile.data.role==='user'){
+                bookings= await getUserBookings(session.user.token)
+
+            }
+            else if(profile.data.role==='admin'){
+                bookings= await getAllBookings()
+
+            }
+
             setRes(res)
             setBook(bookings)
             console.log(bookings)

@@ -175,9 +175,7 @@ const Form = ({user,bookItemtoEdit}:{user:Object,bookItemtoEdit?:BookingItem}) =
     if(!resJson) return (<div>loading</div>)
 
     return (  
-        <form className="px-20 py-[50px] shadow bg-[#FFEDC0] rounded-md flex flex-col gap-2 justify-center items-center my-[75px] " action={()=>{handleSubmit(bookItemtoEdit)}}>
-            <h1 className="text-4xl text-center font-bold w-[100%]">Booking</h1>
-            <hr className="mt-10 border-black"></hr>
+        <form className="flex flex-col" action={()=>{handleSubmit(bookItemtoEdit)}}>
             <div className="p-3 mt-4 text-gray-600  mb-2 text-sm lg:text-base xl:text-lg">Select Date</div>
             <div className="p-3">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>

@@ -80,15 +80,18 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
     useEffect(()=>{
         const fetchData = async()=>{
             const res = await getRestaurants()
-            let bookings;
-            if(profile.data.role==='user'){
-                bookings= await getUserBookings(session.user.token)
+            
+            const bookings =  await getAllBookings();
+            console.log('pro',profile)
+            console.log('sess',session.user)
+            // if(profile.data.role==='user'){
+            //     bookings= await getUserBookings(session.user.token)
 
-            }
-            else if(profile.data.role==='admin'){
-                bookings= await getAllBookings()
+            // }
+            // else if(profile.data.role==='admin'){
+            //     bookings= await getAllBookings()
 
-            }
+            // }
 
             setRes(res)
             setBook(bookings)
@@ -104,21 +107,30 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
             //revalidate bookSlice state
             dispatch(resetBooking())
             bookings.data.map((obj:Object)=>{
+
                 console.log(resImg.get(obj.restaurant?._id))
                 const imgS:String=findImgSrc(res.data,obj.restaurant?._id)
                 console.log('src form func',imgS)
+
                 const bookItem:BookingItem={
                     _id:obj._id,//generated for use in redux
                     bookingDate: obj.bookingDate.toString(),
                     numOfGuests: obj.numOfGuests,
-                    user: obj.user,
+                    user: obj.user.name,
                     restaurant:{
                         _id:obj.restaurant?._id,
                         name:obj.restaurant?.name,
                         picture: imgS
                     }  
                 }
-                dispatch(addBooking(bookItem))
+                if(profile.data.role==='user' && obj.user._id===profile.data._id){
+                    dispatch(addBooking(bookItem))
+                }
+
+                else if(profile.data.role==='admin' ){
+                    dispatch(addBooking(bookItem))
+
+                }
             })
         }
         fetchData()
@@ -175,6 +187,8 @@ const Reservations = ({profile,session}:{profile:Object,session?:Object}) => {
                                     <div className="text-lg">Booked At : {bookItem.restaurant.name}</div>
                                     <div className="text-lg">Guests : {bookItem.numOfGuests.toString()}</div>
                                     <div className="text-lg">Date : {bookItem.bookingDate.slice(0, 10)}</div>
+                                    <div className="text-lg">Name : {bookItem.user}</div>
+
 
                                     
                                 </div>
